@@ -832,6 +832,39 @@
         </div>
     </div>
 
+    <!-- Update Employee Password Modal -->
+    <div id="passwordModal" class="modal-overlay">
+        <div class="login-card glass-card employee-modal-card">
+            <button class="close-modal" id="closePasswordModalBtn"><i class="fa-solid fa-xmark"></i></button>
+            <div class="login-header">
+                <div class="login-logo">
+                    <i class="fa-solid fa-key"></i>
+                </div>
+                <h2>Ubah Password<span> Karyawan</span></h2>
+                <p>Perbarui kata sandi akun karyawan dan simpan perubahan.</p>
+            </div>
+
+            <form id="passwordForm" autocomplete="off">
+                <input type="hidden" id="passwordEmpNip" value="">
+                <div class="form-group">
+                    <label for="passwordEmployeeName">Nama Karyawan</label>
+                    <input type="text" id="passwordEmployeeName" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="newPasswordInput">Kata Sandi Baru</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="newPasswordInput" placeholder="Masukkan kata sandi baru" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn-login-submit" id="savePasswordBtn">
+                    <span class="btn-text">Simpan Password Baru</span>
+                </button>
+                <div class="reply-status" id="passwordStatusText"></div>
+            </form>
+        </div>
+    </div>
+
     <!-- Background decorative grids/glows -->
     <div class="bg-glow bg-glow-1"></div>
     <div class="bg-glow bg-glow-2"></div>

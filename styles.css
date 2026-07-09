@@ -1806,10 +1806,14 @@ footer {
     color: var(--error);
 }
 
+.table-actions {
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.btn-edit,
 .btn-delete {
-    background: rgba(239, 68, 68, 0.08);
-    color: var(--error);
-    border: 1px solid rgba(239, 68, 68, 0.15);
     width: 32px;
     height: 32px;
     border-radius: 8px;
@@ -1817,6 +1821,25 @@ footer {
     align-items: center;
     justify-content: center;
     transition: var(--transition-smooth);
+    border: 1px solid transparent;
+}
+
+.btn-edit {
+    background: rgba(28, 59, 153, 0.08);
+    color: var(--accent-blue);
+    border-color: rgba(28, 59, 153, 0.15);
+}
+
+.btn-edit:hover {
+    background: var(--accent-blue);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(28, 59, 153, 0.25);
+}
+
+.btn-delete {
+    background: rgba(239, 68, 68, 0.08);
+    color: var(--error);
+    border-color: rgba(239, 68, 68, 0.15);
 }
 
 .btn-delete:hover {

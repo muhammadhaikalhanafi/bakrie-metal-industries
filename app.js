@@ -112,14 +112,27 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const stored = localStorage.getItem('bmiKaryawanList');
             if (stored) {
-                return JSON.parse(stored);
+                const parsed = JSON.parse(stored);
+                const adminAccount = parsed.find(acc => acc.nip === 'BMI-ADMIN-01' || acc.username?.toLowerCase() === 'adminbmi' || acc.username?.toLowerCase() === 'admin123' || (acc.role?.toLowerCase() === 'admin' && acc.departemen?.toLowerCase() === 'admin'));
+
+                if (adminAccount) {
+                    adminAccount.username = 'admin123';
+                    adminAccount.sandi = 'admin321';
+                    adminAccount.role = 'Admin';
+                    adminAccount.canManageAccounts = true;
+                    adminAccount.departemen = adminAccount.departemen || 'Admin';
+                    adminAccount.status = adminAccount.status || 'Aktif';
+                    localStorage.setItem('bmiKaryawanList', JSON.stringify(parsed));
+                }
+
+                return parsed;
             }
         } catch (error) {
             console.warn('Unable to load employee accounts:', error);
         }
 
         return [
-            { nip: 'BMI-ADMIN-01', nama: 'Administrator BMI', jabatan: 'System Administrator', departemen: 'Admin', email: 'admin@bakriemetal.co.id', username: 'adminbmi', sandi: 'Admin123!', status: 'Aktif', role: 'Admin', canManageAccounts: true },
+            { nip: 'BMI-ADMIN-01', nama: 'Administrator BMI', jabatan: 'System Administrator', departemen: 'Admin', email: 'admin@bakriemetal.co.id', username: 'admin123', sandi: 'admin321', status: 'Aktif', role: 'Admin', canManageAccounts: true },
             { nip: 'BMI-22010', nama: 'Budi Santoso', jabatan: 'Welding Supervisor', departemen: 'Produksi & Fabrikasi', email: 'budi.santoso@bakriemetal.co.id', username: 'bus', sandi: '123', status: 'Aktif', role: 'Karyawan' },
             { nip: 'BMI-24018', nama: 'Siti Rahmawati', jabatan: 'Quality Control Engineer', departemen: 'Quality Assurance & QC', email: 'siti.rahma@bakriemetal.co.id', username: 'sitir', sandi: 'pwd123Sit', status: 'Aktif', role: 'Karyawan' },
             { nip: 'BMI-23005', nama: 'Adi Wijaya', jabatan: 'HSE Safety Officer', departemen: 'HSE & Safety', email: 'adi.wijaya@bakriemetal.co.id', username: 'adiw', sandi: 'pwd123Adi', status: 'Aktif', role: 'Karyawan' },
@@ -364,11 +377,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             setTimeout(() => {
                 const normalizedUsername = usernameInput.toLowerCase();
+                const adminCredentialsMatch = normalizedUsername === 'admin123' && passwordInput === 'admin321';
                 const legacyAdmin = usernameInput === 'admin' && passwordInput === 'password123';
-                const matchingAccount = !legacyAdmin ? karyawanList.find(acc => acc.username.toLowerCase() === normalizedUsername && acc.sandi === passwordInput && acc.status && acc.status.toLowerCase() === 'aktif') : null;
-                const isAdminAccount = legacyAdmin || (matchingAccount && (matchingAccount.role?.toLowerCase() === 'admin' || matchingAccount.canManageAccounts || matchingAccount.departemen?.toLowerCase() === 'admin'));
+                const matchingAccount = !adminCredentialsMatch && !legacyAdmin ? karyawanList.find(acc => acc.username.toLowerCase() === normalizedUsername && acc.sandi === passwordInput && acc.status && acc.status.toLowerCase() === 'aktif') : null;
+                const isAdminAccount = adminCredentialsMatch || legacyAdmin || (matchingAccount && (matchingAccount.role?.toLowerCase() === 'admin' || matchingAccount.canManageAccounts || matchingAccount.departemen?.toLowerCase() === 'admin'));
 
-                if (legacyAdmin || isAdminAccount) {
+                if (adminCredentialsMatch || legacyAdmin || isAdminAccount) {
                     userProfile.name = matchingAccount?.nama || 'Administrator';
                     userProfile.email = matchingAccount?.email || 'admin@bakriemetal.co.id';
                     userProfile.role = matchingAccount?.jabatan || matchingAccount?.role || 'Super Admin (Root)';
@@ -513,6 +527,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const employeeModal = document.getElementById('employeeModal');
     const closeEmployeeModalBtn = document.getElementById('closeEmployeeModalBtn');
     const employeeForm = document.getElementById('employeeForm');
+    const passwordModal = document.getElementById('passwordModal');
+    const closePasswordModalBtn = document.getElementById('closePasswordModalBtn');
+    const passwordForm = document.getElementById('passwordForm');
+    const passwordEmpNip = document.getElementById('passwordEmpNip');
+    const passwordEmployeeName = document.getElementById('passwordEmployeeName');
+    const newPasswordInput = document.getElementById('newPasswordInput');
+    const passwordStatusText = document.getElementById('passwordStatusText');
 
     // 1. Render Table
     function renderKaryawanTable(filterText = '') {
@@ -557,18 +578,33 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td><span class="emp-credential">${emp.sandi}</span></td>
                 <td><span class="emp-status ${statusClass}">${emp.status}</span></td>
                 <td>
-                    ${canManage ? `<button class="btn-delete" data-nip="${emp.nip}" title="Hapus Karyawan">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </button>` : `<span class="view-only-badge">Hanya lihat</span>`}
+                    ${canManage ? `
+                        <div class="table-actions">
+                            <button class="btn-edit" data-nip="${emp.nip}" title="Ubah Password">
+                                <i class="fa-solid fa-key"></i>
+                            </button>
+                            <button class="btn-delete" data-nip="${emp.nip}" title="Hapus Karyawan">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </div>
+                    ` : `<span class="view-only-badge">Hanya lihat</span>`}
                 </td>
             `;
             karyawanTableBody.appendChild(tr);
         });
 
         if (canManageAccounts()) {
+            const editButtons = karyawanTableBody.querySelectorAll('.btn-edit');
+            editButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const nipToEdit = btn.getAttribute('data-nip');
+                    openPasswordModal(nipToEdit);
+                });
+            });
+
             const deleteButtons = karyawanTableBody.querySelectorAll('.btn-delete');
             deleteButtons.forEach(btn => {
-                btn.addEventListener('click', (e) => {
+                btn.addEventListener('click', () => {
                     const nipToDelete = btn.getAttribute('data-nip');
                     deleteKaryawan(nipToDelete);
                 });
@@ -609,6 +645,82 @@ document.addEventListener('DOMContentLoaded', () => {
     function closeEmployeeModal() {
         employeeModal.classList.remove('active');
         employeeForm.reset();
+    }
+
+    function openPasswordModal(nip) {
+        if (!canManageAccounts()) {
+            alert('Hanya akun HR & Legal yang dapat mengubah atau mengelola data akun karyawan.');
+            return;
+        }
+
+        const emp = karyawanList.find(item => item.nip === nip);
+        if (!emp) return;
+
+        if (passwordEmpNip) passwordEmpNip.value = emp.nip;
+        if (passwordEmployeeName) passwordEmployeeName.value = `${emp.nama} (${emp.nip})`;
+        if (newPasswordInput) {
+            newPasswordInput.value = '';
+            newPasswordInput.focus();
+        }
+        if (passwordStatusText) passwordStatusText.textContent = '';
+        if (passwordModal) passwordModal.classList.add('active');
+    }
+
+    function closePasswordModal() {
+        if (passwordModal) passwordModal.classList.remove('active');
+        if (passwordForm) passwordForm.reset();
+        if (passwordEmpNip) passwordEmpNip.value = '';
+        if (passwordStatusText) passwordStatusText.textContent = '';
+    }
+
+    if (closePasswordModalBtn && passwordModal) {
+        closePasswordModalBtn.addEventListener('click', () => {
+            closePasswordModal();
+        });
+
+        passwordModal.addEventListener('click', (e) => {
+            if (e.target === passwordModal) {
+                closePasswordModal();
+            }
+        });
+    }
+
+    if (passwordForm) {
+        passwordForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            if (!canManageAccounts()) {
+                alert('Hanya akun HR & Legal yang dapat mengubah atau mengelola data akun karyawan.');
+                return;
+            }
+
+            const nipVal = passwordEmpNip?.value.trim();
+            const passwordVal = newPasswordInput?.value.trim();
+
+            if (!nipVal || !passwordVal) {
+                if (passwordStatusText) {
+                    passwordStatusText.textContent = 'Kata sandi baru wajib diisi.';
+                    passwordStatusText.style.color = 'var(--warning)';
+                }
+                return;
+            }
+
+            const emp = karyawanList.find(item => item.nip === nipVal);
+            if (!emp) return;
+
+            emp.sandi = passwordVal;
+            saveKaryawanList();
+            renderKaryawanTable(karyawanSearch.value);
+
+            if (passwordStatusText) {
+                passwordStatusText.textContent = `Password berhasil diperbarui untuk ${emp.nama}.`;
+                passwordStatusText.style.color = 'var(--success)';
+            }
+
+            setTimeout(() => {
+                closePasswordModal();
+            }, 800);
+        });
     }
 
     // 4. Add Employee Form Submission (with account parameters)
