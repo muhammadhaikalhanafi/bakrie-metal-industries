@@ -375,6 +375,7 @@
                 <ul>
                     <li><a href="#" class="sidebar-link active" data-tab="overview"><i class="fa-solid fa-chart-line"></i> Ringkasan</a></li>
                     <li><a href="#" class="sidebar-link" data-tab="karyawan"><i class="fa-solid fa-users"></i> Data Karyawan</a></li>
+                    <li><a href="#" class="sidebar-link" data-tab="attendance"><i class="fa-solid fa-calendar-check"></i> Absensi Karyawan</a></li>
                     <li><a href="#" class="sidebar-link" data-tab="website"><i class="fa-solid fa-globe"></i> Pengaturan Website</a></li>
                     <li><a href="#" class="sidebar-link" data-tab="kontak"><i class="fa-solid fa-envelope-open-text"></i> Kontak Klien</a></li>
                     <li><a href="#" class="sidebar-link" data-tab="projects"><i class="fa-solid fa-diagram-project"></i> Proyek & Portofolio</a></li>
@@ -563,7 +564,45 @@
                     </div>
                 </div>
 
-                <!-- TAB 3: PENGATURAN WEBSITE (NEW TAB) -->
+                <!-- TAB 3: ABSENSI KARYAWAN -->
+                <div class="db-tab-content" id="tab-attendance">
+                    <div class="db-card">
+                        <h3>Absensi Karyawan</h3>
+                        <p class="section-desc">Pantau status kehadiran dengan kategori Hadir, Izin, dan Sakit.</p>
+
+                        <div class="admin-card-grid attendance-summary-grid">
+                            <div class="admin-mini-card">
+                                <h4 id="attendanceHadirCount">0</h4>
+                                <p>Hadir</p>
+                            </div>
+                            <div class="admin-mini-card">
+                                <h4 id="attendanceIzinCount">0</h4>
+                                <p>Izin</p>
+                            </div>
+                            <div class="admin-mini-card">
+                                <h4 id="attendanceSakitCount">0</h4>
+                                <p>Sakit</p>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive" style="margin-top: 20px;">
+                            <table class="karyawan-table">
+                                <thead>
+                                    <tr>
+                                        <th>Nama</th>
+                                        <th>Jabatan</th>
+                                        <th>Tanggal</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="attendanceTableBody"></tbody>
+                            </table>
+                        </div>
+                        <p class="section-desc" id="attendanceAccessHint" style="margin-top: 14px;">Hanya admin yang dapat mengubah status absensi.</p>
+                    </div>
+                </div>
+
+                <!-- TAB 4: PENGATURAN WEBSITE (NEW TAB) -->
                 <div class="db-tab-content" id="tab-website">
                     <div class="db-card">
                         <h3>Pengaturan Informasi Website</h3>

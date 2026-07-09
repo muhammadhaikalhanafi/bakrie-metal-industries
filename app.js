@@ -84,9 +84,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="contact-message-meta">${message.subject} • ${new Date(message.submittedAt).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' })}</div>
                 <div class="contact-message-body">${message.message}</div>
                 ${message.reply ? `<div class="admin-reply-preview"><strong>Balasan admin:</strong> ${message.reply}</div>` : ''}
-                <button class="reply-select-btn" data-id="${message.id}" type="button">
+                ${canManageAccounts() ? `<button class="reply-select-btn" data-id="${message.id}" type="button">
                     <i class="fa-solid fa-reply"></i> Balas pesan ini
-                </button>
+                </button>` : ''}
             </div>
         `).join('');
 
@@ -143,12 +143,91 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     let karyawanList = loadKaryawanList();
+    let attendanceList = loadAttendanceList();
 
     function saveKaryawanList() {
         try {
             localStorage.setItem('bmiKaryawanList', JSON.stringify(karyawanList));
         } catch (error) {
             console.warn('Unable to save employee accounts:', error);
+        }
+    }
+
+    function loadAttendanceList() {
+        try {
+            const stored = localStorage.getItem('bmiAttendanceList');
+            if (stored) {
+                return JSON.parse(stored);
+            }
+        } catch (error) {
+            console.warn('Unable to load attendance data:', error);
+        }
+
+        return [
+            { id: 1, nama: 'Budi Santoso', jabatan: 'Welding Supervisor', tanggal: '2026-07-09', status: 'Hadir' },
+            { id: 2, nama: 'Siti Rahmawati', jabatan: 'Quality Control Engineer', tanggal: '2026-07-09', status: 'Izin' },
+            { id: 3, nama: 'Adi Wijaya', jabatan: 'HSE Safety Officer', tanggal: '2026-07-09', status: 'Sakit' }
+        ];
+    }
+
+    function saveAttendanceList() {
+        try {
+            localStorage.setItem('bmiAttendanceList', JSON.stringify(attendanceList));
+        } catch (error) {
+            console.warn('Unable to save attendance data:', error);
+        }
+    }
+
+    function renderAttendanceTable() {
+        const attendanceTableBody = document.getElementById('attendanceTableBody');
+        const hadirCount = document.getElementById('attendanceHadirCount');
+        const izinCount = document.getElementById('attendanceIzinCount');
+        const sakitCount = document.getElementById('attendanceSakitCount');
+        const attendanceAccessHint = document.getElementById('attendanceAccessHint');
+
+        if (!attendanceTableBody) return;
+
+        const hadir = attendanceList.filter(item => item.status === 'Hadir').length;
+        const izin = attendanceList.filter(item => item.status === 'Izin').length;
+        const sakit = attendanceList.filter(item => item.status === 'Sakit').length;
+
+        if (hadirCount) hadirCount.textContent = hadir;
+        if (izinCount) izinCount.textContent = izin;
+        if (sakitCount) sakitCount.textContent = sakit;
+        if (attendanceAccessHint) {
+            attendanceAccessHint.textContent = canManageAccounts() ? 'Anda dapat mengubah status absensi di sini.' : 'Hanya admin yang dapat mengubah status absensi.';
+        }
+
+        attendanceTableBody.innerHTML = attendanceList.map(item => `
+            <tr>
+                <td>${item.nama}</td>
+                <td>${item.jabatan}</td>
+                <td>${item.tanggal}</td>
+                <td>
+                    ${canManageAccounts() ? `
+                        <select class="attendance-select" data-id="${item.id}">
+                            <option value="Hadir" ${item.status === 'Hadir' ? 'selected' : ''}>Hadir</option>
+                            <option value="Izin" ${item.status === 'Izin' ? 'selected' : ''}>Izin</option>
+                            <option value="Sakit" ${item.status === 'Sakit' ? 'selected' : ''}>Sakit</option>
+                        </select>
+                    ` : `<span class="attendance-badge ${item.status.toLowerCase()}">${item.status}</span>`}
+                </td>
+            </tr>
+        `).join('');
+
+        if (canManageAccounts()) {
+            attendanceTableBody.querySelectorAll('.attendance-select').forEach(select => {
+                select.addEventListener('change', (e) => {
+                    const id = Number(e.target.getAttribute('data-id'));
+                    const selectedStatus = e.target.value;
+                    const record = attendanceList.find(item => item.id === id);
+                    if (record) {
+                        record.status = selectedStatus;
+                        saveAttendanceList();
+                        renderAttendanceTable();
+                    }
+                });
+            });
         }
     }
 
@@ -189,12 +268,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function canManageAccounts() {
         const roleText = `${userProfile.role || ''} ${userProfile.department || ''}`.toLowerCase();
-        return userProfile.canManageAccounts || roleText.includes('hr') || roleText.includes('legal');
+        return userProfile.canManageAccounts || roleText.includes('admin');
     }
 
     function canViewEmployeeCredentials() {
         const roleText = `${userProfile.role || ''} ${userProfile.department || ''}`.toLowerCase();
-        return roleText.includes('admin');
+        return roleText.includes('admin') || userProfile.canManageAccounts;
     }
 
     function refreshAccountAccessUI() {
@@ -204,11 +283,42 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function applyAdminOnlyReadOnlyState() {
+        const formsToToggle = [
+            document.getElementById('websiteInfoForm'),
+            document.getElementById('settingsForm'),
+            document.getElementById('replyContactForm')
+        ];
+
+        const isAdmin = canManageAccounts();
+
+        formsToToggle.forEach((form) => {
+            if (!form) return;
+
+            const fields = form.querySelectorAll('input, textarea, select, button');
+            fields.forEach((field) => {
+                if (field.type === 'submit' || field.tagName.toLowerCase() === 'button') {
+                    field.style.display = isAdmin ? '' : 'none';
+                } else {
+                    field.disabled = !isAdmin;
+                }
+            });
+
+            if (form.id === 'replyContactForm') {
+                const textarea = form.querySelector('textarea');
+                if (textarea) {
+                    textarea.placeholder = isAdmin ? 'Tulis balasan resmi untuk klien...' : 'Hanya admin yang dapat mengirim balasan.';
+                }
+            }
+        });
+    }
+
     // Trigger sync on page load
     syncWebsiteInfo();
     renderContactStatus();
     renderContactInbox();
     refreshAccountAccessUI();
+    applyAdminOnlyReadOnlyState();
 
     // ================= MOBILE NAVIGATION TOGGLE =================
     const menuToggle = document.getElementById('menuToggle');
@@ -430,7 +540,9 @@ document.addEventListener('DOMContentLoaded', () => {
         updateDashboardProfileDisplay();
         setCurrentDate();
         renderKaryawanTable();
+        renderAttendanceTable();
         syncWebsiteInfo();
+        applyAdminOnlyReadOnlyState();
     }
 
     function exitDashboard() {
@@ -813,6 +925,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (replyContactForm) {
         replyContactForm.addEventListener('submit', (e) => {
             e.preventDefault();
+            if (!canManageAccounts()) {
+                if (replyStatusText) {
+                    replyStatusText.textContent = 'Hanya admin yang dapat mengirim balasan.';
+                    replyStatusText.style.color = 'var(--warning)';
+                }
+                return;
+            }
+
             if (!replyContactId.value || !replyText.value.trim()) {
                 if (replyStatusText) {
                     replyStatusText.textContent = 'Pilih pesan klien dan tulis balasan terlebih dahulu.';
@@ -853,6 +973,17 @@ document.addEventListener('DOMContentLoaded', () => {
         websiteInfoForm.addEventListener('submit', (e) => {
             e.preventDefault();
 
+            if (!canManageAccounts()) {
+                if (websiteAlert) {
+                    websiteAlert.style.display = 'flex';
+                    websiteAlert.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i><span>Hanya admin yang dapat memperbarui data website.</span>';
+                    setTimeout(() => {
+                        websiteAlert.style.display = 'none';
+                    }, 3000);
+                }
+                return;
+            }
+
             websiteInfo.heroTitle = document.getElementById('webHeroTitleInput').value.trim();
             websiteInfo.heroDesc = document.getElementById('webHeroDescInput').value.trim();
             websiteInfo.phone = document.getElementById('webPhoneInput').value.trim();
@@ -879,6 +1010,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (settingsForm) {
         settingsForm.addEventListener('submit', (e) => {
             e.preventDefault();
+            if (!canManageAccounts()) {
+                if (settingsAlert) {
+                    settingsAlert.style.display = 'flex';
+                    settingsAlert.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i><span>Hanya admin yang dapat mengubah profil.</span>';
+                    setTimeout(() => {
+                        settingsAlert.style.display = 'none';
+                    }, 3000);
+                }
+                return;
+            }
+
             const nameVal = document.getElementById('adminNameInput').value.trim();
             const emailVal = document.getElementById('adminEmailInput').value.trim();
             const passwordVal = document.getElementById('adminPasswordInput').value;
