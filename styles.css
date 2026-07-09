@@ -2176,4 +2176,130 @@ footer {
         grid-template-columns: 1fr;
         gap: 16px;
     }
+
+    .nav-container {
+        padding: 16px 16px;
+    }
+
+    .logo-main {
+        font-size: 1rem;
+    }
+
+    .logo-sub {
+        font-size: 0.62rem;
+    }
+
+    .hero-section {
+        padding: 120px 16px 70px;
+    }
+
+    .hero-content h1 {
+        font-size: 2rem;
+        line-height: 1.2;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .hero-actions a,
+    .btn-primary,
+    .btn-secondary,
+    .btn-login-submit,
+    .btn-save-settings {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .section-header h2 {
+        font-size: 1.6rem;
+    }
+
+    .db-card,
+    .contact-message-card,
+    .notice-item,
+    .admin-mini-card {
+        padding: 16px;
+    }
+
+    .db-body {
+        padding: 16px;
+    }
+
+    .db-main-content {
+        padding: 0 0 20px;
+    }
+
+    .karyawan-table {
+        min-width: 680px;
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    .login-card {
+        width: 92vw;
+        max-width: 460px;
+        padding: 24px 18px;
+    }
+
+    .employee-modal-card {
+        max-width: 92vw !important;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select,
+    .input-wrapper input {
+        width: 100%;
+    }
+
+    .contact-message-head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-container {
+        padding: 14px 14px;
+    }
+
+    .logo {
+        gap: 8px;
+    }
+
+    .logo-icon {
+        width: 34px;
+        height: 34px;
+        font-size: 1rem;
+    }
+
+    .hero-content h1 {
+        font-size: 1.8rem;
+    }
+
+    .section-header h2 {
+        font-size: 1.35rem;
+    }
+
+    .db-header {
+        padding: 14px 16px;
+    }
+
+    .db-body {
+        padding: 14px;
+    }
+
+    .karyawan-toolbar .search-box input {
+        font-size: 0.92rem;
+    }
+
+    .contact-info h3,
+    .contact-form-container h3 {
+        font-size: 1.1rem;
+    }
 }
