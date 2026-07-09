@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PT. Bakrie Metal Industries - Inovasi Struktur & Manufaktur Logam</title>
+    <!-- Meta SEO -->
+    <meta name="description" content="PT. Bakrie Metal Industries adalah perusahaan manufaktur struktur baja, fabrikasi pipa, dan konstruksi logam terkemuka di Indonesia untuk proyek skala besar.">
+    <meta name="keywords" content="metal, baja, pipa, fabrikasi baja, konstruksi, Bakrie Metal Industries, BMI">
+    <meta name="author" content="Bakrie Metal Industries">
+    <!-- Google Fonts: Outfit & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Style Sheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- ================= PUBLIC WEBSITE AREA ================= -->
+    <div id="publicContainer">
+        <!-- Navigation Bar -->
+        <header id="mainHeader">
+            <div class="nav-container">
+                <a href="#home" class="logo">
+                    <span class="logo-icon"><i class="fa-solid fa-gears"></i></span>
+                    <span class="logo-stack">
+                        <span class="logo-main" id="brandNameDisplay">PT. Bakrie Metal Industries</span>
+                        <span class="logo-sub" id="brandDomainDisplay">bakriemetal.co.id</span>
+                    </span>
+                </a>
+                <nav class="nav-menu" id="navMenu">
+                    <ul>
+                        <li><a href="#home" class="nav-link active"><i class="fa-solid fa-house"></i> Beranda</a></li>
+                        <li><a href="#tentang" class="nav-link"><i class="fa-solid fa-building"></i> Tentang</a></li>
+                        <li><a href="#layanan" class="nav-link"><i class="fa-solid fa-screwdriver-wrench"></i> Layanan</a></li>
+                        <li><a href="#proyek" class="nav-link"><i class="fa-solid fa-diagram-project"></i> Proyek</a></li>
+                        <li><a href="#tim" class="nav-link"><i class="fa-solid fa-users"></i> Tim</a></li>
+                        <li><a href="#contact" class="nav-link"><i class="fa-solid fa-envelope"></i> Kontak</a></li>
+                    </ul>
+                </nav>
+                <div class="nav-actions">
+                    <button class="btn-login" id="openLoginBtn">
+                        <i class="fa-solid fa-right-to-bracket"></i> Masuk
+                    </button>
+                    <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+            <!-- Hero Section (Beranda) -->
+            <section id="home" class="hero-section">
+                <div class="hero-bg-overlay"></div>
+                <div class="hero-container">
+                    <div class="hero-content">
+                        <div class="badge">Keunggulan Struktur & Fabrikasi</div>
+                        <h1 id="liveHeroTitle">Kokoh Terpercaya Membangun Indonesia</h1>
+                        <p id="liveHeroDesc">Bakrie Metal Industries menyediakan solusi fabrikasi baja berat, pipa baja berkualitas tinggi, dan jasa konstruksi logam presisi untuk infrastruktur nasional dan industri energi global.</p>
+                        <div class="hero-actions">
+                            <a href="#informasi" class="btn-primary">Mulai Jelajahi <i class="fa-solid fa-arrow-right"></i></a>
+                            <a href="#contact" class="btn-secondary">Hubungi Kami</a>
+                        </div>
+                    </div>
+                    <div class="hero-visual">
+                        <div class="glass-card visual-card">
+                            <div class="card-glow"></div>
+                            <div class="card-header">
+                                <span class="status-dot online"></span>
+                                <span>BMI Plant Status: Optimal</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="stat-row">
+                                    <div class="stat-item">
+                                        <div class="stat-num" id="statUptime">99.99%</div>
+                                        <div class="stat-lbl">Safety Rate (HSE)</div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="stat-num" id="statClients">500+</div>
+                                        <div class="stat-lbl">Proyek Selesai</div>
+                                    </div>
+                                </div>
+                                <div class="stat-divider"></div>
+                                <div class="card-chart">
+                                    <div class="chart-header">
+                                        <span>Kapasitas Produksi Bulanan</span>
+                                        <span class="chart-val">+14.2%</span>
+                                    </div>
+                                    <div class="chart-bars">
+                                        <div class="bar" style="--height: 40%"></div>
+                                        <div class="bar" style="--height: 60%"></div>
+                                        <div class="bar" style="--height: 45%"></div>
+                                        <div class="bar" style="--height: 75%"></div>
+                                        <div class="bar" style="--height: 90%"></div>
+                                        <div class="bar animate-bar" style="--height: 95%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section id="tentang" class="story-section">
+                <div class="section-header">
+                    <span class="section-subtitle">Tentang Perusahaan</span>
+                    <h2>Memimpin transformasi industri manufaktur logam di Indonesia</h2>
+                    <div class="header-line"></div>
+                </div>
+                <div class="story-grid">
+                    <div class="story-card">
+                        <h3>Visi & Misi</h3>
+                        <p>Menjadi mitra strategis nasional dalam fabrikasi baja berat, sistem struktur, dan solusi infrastruktur yang aman, presisi, dan berkelanjutan.</p>
+                        <ul class="about-list">
+                            <li><i class="fa-solid fa-circle-check"></i> Standar mutu internasional</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Sipil & energi terpadu</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Tim teknis berpengalaman</li>
+                        </ul>
+                    </div>
+                    <div class="story-card highlight-card">
+                        <h3>Keunggulan Utama</h3>
+                        <div class="stat-list">
+                            <div class="company-stat"><strong>500+</strong><span>Proyek selesai</span></div>
+                            <div class="company-stat"><strong>24/7</strong><span>Monitoring produksi</span></div>
+                            <div class="company-stat"><strong>98%</strong><span>Retention klien strategis</span></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Informasi Section -->
+            <section id="layanan" class="info-section">
+                <div class="section-header">
+                    <span class="section-subtitle">Siapa Kami & Layanan Kami</span>
+                    <h2>Penyedia Solusi Konstruksi Logam Terintegrasi</h2>
+                    <div class="header-line"></div>
+                </div>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="card-icon"><i class="fa-solid fa-industry"></i></div>
+                        <h3>Fabrikasi Baja Berat</h3>
+                        <p>Fabrikasi struktur baja skala besar untuk jembatan, bangunan bertingkat tinggi, pelabuhan, dan fasilitas industri dengan standar internasional terakreditasi.</p>
+                        <a href="#contact" class="card-link">Pelajari lebih lanjut <i class="fa-solid fa-angle-right"></i></a>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-icon"><i class="fa-solid fa-lines-leaning"></i></div>
+                        <h3>Manufaktur Pipa Baja</h3>
+                        <p>Produksi pipa baja berkualitas tinggi untuk sektor minyak dan gas bumi, transmisi air, serta konstruksi struktural dengan presisi ketebalan terbaik.</p>
+                        <a href="#contact" class="card-link">Pelajari lebih lanjut <i class="fa-solid fa-angle-right"></i></a>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                        <h3>Jasa EPC & Konstruksi</h3>
+                        <p>Layanan Engineering, Procurement, dan Construction terpadu untuk memastikan proyek diselesaikan tepat waktu, sesuai spesifikasi, dan aman.</p>
+                        <a href="#contact" class="card-link">Pelajari lebih lanjut <i class="fa-solid fa-angle-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="about-brief">
+                    <div class="about-img">
+                        <div class="img-placeholder-glow">
+                            <i class="fa-solid fa-compass-drafting"></i>
+                        </div>
+                    </div>
+                    <div class="about-content">
+                        <h3>Mengapa Memilih Bakrie Metal Industries?</h3>
+                        <p>Sebagai bagian dari Bakrie Group, kami memiliki pengalaman puluhan tahun dalam menangani proyek infrastruktur strategis nasional di Indonesia dengan standar mutu dan keselamatan yang ketat.</p>
+                        <ul class="about-list">
+                            <li><i class="fa-solid fa-circle-check"></i> Sertifikasi ISO 9001, 14001, & ISO 45001</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Fasilitas Fabrikasi Modern dan Luas</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Rekam Jejak Sukses di Sektor Migas & Infrastruktur</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Project Section -->
+            <section id="proyek" class="portfolio-section">
+                <div class="section-header">
+                    <span class="section-subtitle">Portofolio Proyek</span>
+                    <h2>Rangkaian proyek strategis yang membangun masa depan industri</h2>
+                    <div class="header-line"></div>
+                </div>
+                <div class="portfolio-grid">
+                    <article class="project-card">
+                        <h3>Jembatan Tol Nasional</h3>
+                        <p>Fabrikasi struktur baja berat untuk penopang utama proyek transportasi nasional.</p>
+                        <span>Infrastructure • 2025</span>
+                    </article>
+                    <article class="project-card">
+                        <h3>Terminal LNG & Energi</h3>
+                        <p>Penyediaan pipa baja presisi dan sistem pendukung untuk fasilitas energi.</p>
+                        <span>Energy • 2024</span>
+                    </article>
+                    <article class="project-card">
+                        <h3>Gudang Industri Modern</h3>
+                        <p>Solusi rangka atap, platform, dan struktur komersial skala besar.</p>
+                        <span>Industrial • 2023</span>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Team Section -->
+            <section id="tim" class="team-section">
+                <div class="section-header">
+                    <span class="section-subtitle">Tim Profesional</span>
+                    <h2>Dipimpin oleh Engineer Supervisor Ahli Fabrikasi terdepan</h2>
+                    <div class="header-line"></div>
+                </div>
+                <div class="team-grid">
+                    <div class="team-card">
+                        <h3>Raja Baruna Putra</h3>
+                        <p>Chief Operational Officer</p>
+                    </div>
+                    <div class="team-card">
+                        <h3>Azira Fitri Elsera</h3>
+                        <p>Head of Engineering</p>
+                    </div>
+                    <div class="team-card">
+                        <h3>Dean Nugroho
+                        
+                        </h3>
+                        <p>Project Delivery Lead</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="contact-section">
+                <div class="section-header">
+                    <span class="section-subtitle">Hubungi Kami</span>
+                    <h2>Siap Bermitra Dengan Kami?</h2>
+                    <div class="header-line"></div>
+                </div>
+                <div class="contact-container">
+                    <div class="contact-info">
+                        <h3>Informasi Kontak</h3>
+                        <p>Hubungi departemen marketing atau tim sales kami untuk penawaran proyek konstruksi baja dan pengadaan pipa.</p>
+                        <div class="info-details">
+                            <div class="detail-item">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <div>
+                                    <h4>Kantor Pusat</h4>
+                                    <p id="liveAddress">Bakrie Tower Lantai 36, Rasuna Said Kuningan, Jakarta Selatan, Indonesia</p>
+                                </div>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fa-solid fa-phone"></i>
+                                <div>
+                                    <h4>Telepon</h4>
+                                    <p id="livePhone">+62 (21) 5290-9999</p>
+                                </div>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fa-solid fa-envelope"></i>
+                                <div>
+                                    <h4>Email</h4>
+                                    <p id="liveEmail">sales@bakriemetal.co.id</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="social-links">
+                            <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                            <a href="#" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                        </div>
+                    </div>
+                    <div class="contact-form-container">
+                        <form id="contactForm" novalidate>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="contactName">Nama Lengkap</label>
+                                    <input type="text" id="contactName" placeholder="Masukkan nama lengkap Anda" required>
+                                    <span class="error-msg">Nama wajib diisi</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="contactEmail">Email Bisnis</label>
+                                    <input type="email" id="contactEmail" placeholder="nama@perusahaan.com" required>
+                                    <span class="error-msg">Email tidak valid</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="contactSubject">Subjek Kemitraan</label>
+                                <input type="text" id="contactSubject" placeholder="Contoh: Penawaran Tender Fabrikasi Baja" required>
+                                    <span class="error-msg">Subjek wajib diisi</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="contactMessage">Pesan / Detail Proyek</label>
+                                <textarea id="contactMessage" rows="5" placeholder="Tuliskan spesifikasi, volume, dan detail proyek Anda..." required></textarea>
+                                    <span class="error-msg">Pesan tidak boleh kosong</span>
+                            </div>
+                            <button type="submit" class="btn-submit" id="submitContactBtn">
+                                <span>Kirim Formulir</span>
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-bottom">
+                <p>&copy; 2026 PT. Bakrie Metal Industries. Seluruh Hak Cipta Dilindungi.</p>
+                <div class="footer-links">
+                    <a href="#">Kebijakan Privasi</a>
+                    <a href="#">Syarat & Ketentuan</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal-overlay">
+        <div class="login-card glass-card">
+            <button class="close-modal" id="closeLoginBtn"><i class="fa-solid fa-xmark"></i></button>
+            <div class="login-header">
+                <div class="login-logo">
+                    <i class="fa-solid fa-gears"></i>
+                </div>
+                <h2>BMI<span>Portal</span></h2>
+                <p>Silakan masuk menggunakan akun administratif Anda.</p>
+            </div>
+            
+            <div class="alert-box error" id="loginAlert" style="display: none;">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <span id="loginAlertText">Username atau password salah!</span>
+            </div>
+
+            <div class="login-tip">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Masuk menggunakan kredensial admin resmi perusahaan Anda.</span>
+            </div>
+
+            <form id="loginForm" autocomplete="off">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" id="username" placeholder="Masukkan username" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password">Kata Sandi</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="password" placeholder="Masukkan kata sandi" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn-login-submit" id="loginSubmitBtn">
+                    <span class="btn-text">Masuk Sekarang</span>
+                    <span class="spinner" style="display: none;"><i class="fa-solid fa-circle-notch fa-spin"></i></span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- ================= DASHBOARD AREA ================= -->
+    <div id="dashboardArea" class="hidden">
+        <!-- Sidebar Navigation -->
+        <aside class="db-sidebar">
+            <div class="sidebar-brand">
+                <i class="fa-solid fa-gears"></i>
+                <span>BMI<span>Console</span></span>
+            </div>
+            <nav class="sidebar-menu">
+                <ul>
+                    <li><a href="#" class="sidebar-link active" data-tab="overview"><i class="fa-solid fa-chart-line"></i> Ringkasan</a></li>
+                    <li><a href="#" class="sidebar-link" data-tab="karyawan"><i class="fa-solid fa-users"></i> Data Karyawan</a></li>
+                    <li><a href="#" class="sidebar-link" data-tab="website"><i class="fa-solid fa-globe"></i> Pengaturan Website</a></li>
+                    <li><a href="#" class="sidebar-link" data-tab="kontak"><i class="fa-solid fa-envelope-open-text"></i> Kontak Klien</a></li>
+                    <li><a href="#" class="sidebar-link" data-tab="projects"><i class="fa-solid fa-diagram-project"></i> Proyek & Portofolio</a></li>
+                    <li><a href="#" class="sidebar-link" data-tab="reports"><i class="fa-solid fa-file-lines"></i> Laporan & Dokumen</a></li>
+                    <li><a href="#" class="sidebar-link" data-tab="info"><i class="fa-solid fa-circle-info"></i> Informasi Internal</a></li>
+                    <li><a href="#" class="sidebar-link" data-tab="settings"><i class="fa-solid fa-gears"></i> Pengaturan Profil</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="btn-logout" id="logoutBtn">
+                    <i class="fa-solid fa-right-from-bracket"></i> Keluar
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Dashboard Content -->
+        <div class="db-main-content">
+            <!-- Header -->
+            <header class="db-header">
+                <div class="db-header-left">
+                    <button class="sidebar-toggle" id="sidebarToggle">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <h1>Selamat Datang Kembali, <span id="adminNameDisplay">Administrator</span></h1>
+                </div>
+                <div class="db-header-right">
+                    <div class="db-date" id="currentDateDisplay">Kamis, 9 Juli 2026</div>
+                    <div class="db-notification">
+                        <i class="fa-solid fa-bell"></i>
+                        <span class="notification-badge"></span>
+                    </div>
+                    <div class="db-user-profile">
+                        <div class="avatar" id="avatarDisplay">A</div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Body -->
+            <main class="db-body">
+                <!-- TAB 1: OVERVIEW -->
+                <div class="db-tab-content active" id="tab-overview">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-card-header">
+                                <span>Output Pabrik Baja</span>
+                                <i class="fa-solid fa-chart-simple text-blue"></i>
+                            </div>
+                            <div class="stat-card-body">
+                                <h2>12,450 Ton <span class="trend positive">+8.4%</span></h2>
+                                <p>Kuantitas produksi dalam 30 hari terakhir</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-header">
+                                <span>Jam Kerja Aman (HSE)</span>
+                                <i class="fa-solid fa-shield-halved text-green"></i>
+                            </div>
+                            <div class="stat-card-body">
+                                <h2>450,000 <span class="trend positive">+100%</span></h2>
+                                <p>Jam kerja tanpa kecelakaan (Zero Accident)</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-header">
+                                <span>Efisiensi Mesin</span>
+                                <i class="fa-solid fa-microchip text-blue"></i>
+                            </div>
+                            <div class="stat-card-body">
+                                <h2>88.6% <span class="trend positive">+2.1%</span></h2>
+                                <p>Peringkat efisiensi OEE pabrik</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="db-grid-two">
+                        <!-- Chart Card -->
+                        <div class="db-card visual-chart-card">
+                            <h3>Produktivitas Crane & Assembly Line (Mingguan)</h3>
+                            <div class="svg-chart-container">
+                                <svg viewBox="0 0 500 200" class="performance-chart">
+                                    <!-- Grid lines -->
+                                    <line x1="0" y1="50" x2="500" y2="50" stroke="rgba(255,255,255,0.05)" stroke-dasharray="5,5"/>
+                                    <line x1="0" y1="100" x2="500" y2="100" stroke="rgba(255,255,255,0.05)" stroke-dasharray="5,5"/>
+                                    <line x1="0" y1="150" x2="500" y2="150" stroke="rgba(255,255,255,0.05)" stroke-dasharray="5,5"/>
+                                    
+                                    <!-- Gradient fill -->
+                                    <defs>
+                                        <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="0%" stop-color="var(--accent-cyan)" stop-opacity="0.3"/>
+                                            <stop offset="100%" stop-color="var(--accent-cyan)" stop-opacity="0"/>
+                                        </linearGradient>
+                                    </defs>
+                                    
+                                    <!-- Area Path -->
+                                    <path d="M 0 200 L 0 140 Q 80 80 160 110 T 320 60 T 420 80 T 500 40 L 500 200 Z" fill="url(#chartGrad)" />
+                                    
+                                    <!-- Line Path -->
+                                    <path d="M 0 140 Q 80 80 160 110 T 320 60 T 420 80 T 500 40" fill="none" stroke="var(--accent-cyan)" stroke-width="3" />
+                                    
+                                    <!-- Dots at key points -->
+                                    <circle cx="160" cy="110" r="5" fill="var(--accent-purple)" stroke="#fff" stroke-width="1.5" />
+                                    <circle cx="320" cy="60" r="5" fill="var(--accent-purple)" stroke="#fff" stroke-width="1.5" />
+                                    <circle cx="500" cy="40" r="5" fill="var(--accent-cyan)" stroke="#fff" stroke-width="1.5" />
+                                </svg>
+                            </div>
+                            <div class="chart-labels">
+                                <span>Sen</span>
+                                <span>Sel</span>
+                                <span>Rab</span>
+                                <span>Kam</span>
+                                <span>Jum</span>
+                                <span>Sab</span>
+                                <span>Min</span>
+                            </div>
+                        </div>
+
+                        <!-- Logs Card -->
+                        <div class="db-card">
+                            <h3>Aktivitas Pabrik Terbaru</h3>
+                            <div class="log-list">
+                                <div class="log-item info">
+                                    <div class="log-icon"><i class="fa-solid fa-circle-info"></i></div>
+                                    <div class="log-details">
+                                        <p>Kalibrasi Mesin CNC Pemotong Baja selesai</p>
+                                        <span>5 menit yang lalu • Maintenance</span>
+                                    </div>
+                                </div>
+                                <div class="log-item warning">
+                                    <div class="log-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                                    <div class="log-details">
+                                        <p>Stok bahan baku pipa 8-inch menipis (Cluster C)</p>
+                                        <span>45 menit yang lalu • Supply Chain</span>
+                                    </div>
+                                </div>
+                                <div class="log-item success">
+                                    <div class="log-icon"><i class="fa-solid fa-circle-check"></i></div>
+                                    <div class="log-details">
+                                        <p>Pemuatan kargo proyek Jembatan Musi selesai</p>
+                                        <span>3 jam yang lalu • Logistik</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 2: DATA KARYAWAN -->
+                <div class="db-tab-content" id="tab-karyawan">
+                    <div class="db-card">
+                        <div class="karyawan-header-wrapper">
+                            <h3>Daftar Karyawan Aktif</h3>
+                            <p class="section-desc">Kelola dan pantau seluruh data personil administratif dan operasional pabrik.</p>
+                            
+                            <div class="karyawan-toolbar">
+                                <div class="search-box">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                    <input type="text" id="karyawanSearch" placeholder="Cari nama, jabatan, NIP, atau departemen...">
+                                </div>
+                                <button class="btn-primary" id="addKaryawanBtn">
+                                    <i class="fa-solid fa-user-plus"></i> Tambah Karyawan & Akun
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Table container -->
+                        <div class="table-responsive">
+                            <table class="karyawan-table">
+                                <thead>
+                                    <tr>
+                                        <th>NIP</th>
+                                        <th>Nama Lengkap</th>
+                                        <th>Jabatan</th>
+                                        <th>Departemen</th>
+                                        <th>Email</th>
+                                        <th>Username</th>
+                                        <th>Kata Sandi</th>
+                                        <th>Status</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="karyawanTableBody">
+                                    <!-- Dynamic content inserted by app.js -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: PENGATURAN WEBSITE (NEW TAB) -->
+                <div class="db-tab-content" id="tab-website">
+                    <div class="db-card">
+                        <h3>Pengaturan Informasi Website</h3>
+                        <p class="section-desc">Perbarui konten landing page publik secara dinamis di bawah ini.</p>
+                        
+                        <div class="alert-box success" id="websiteAlert" style="display: none;">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>Informasi website berhasil diperbarui secara real-time!</span>
+                        </div>
+
+                        <form id="websiteInfoForm">
+                            <div class="form-group">
+                                <label for="webHeroTitleInput">Judul Utama Hero (Beranda)</label>
+                                <input type="text" id="webHeroTitleInput" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="webHeroDescInput">Deskripsi Singkat Hero</label>
+                                <textarea id="webHeroDescInput" rows="3" required></textarea>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="webPhoneInput">Nomor Telepon Kantor</label>
+                                    <input type="text" id="webPhoneInput" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="webEmailInput">Email Perusahaan</label>
+                                    <input type="email" id="webEmailInput" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="webAddressInput">Alamat Kantor Pusat</label>
+                                <textarea id="webAddressInput" rows="2" required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn-save-settings">
+                                <i class="fa-solid fa-globe"></i> Simpan & Update Website
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- TAB 4: KOTAK MASUK KONTAK -->
+                <div class="db-tab-content" id="tab-kontak">
+                    <div class="db-card">
+                        <h3>Kotak Masuk Kontak Klien</h3>
+                        <p class="section-desc">Pantau pesan dari klien dan kirim balasan langsung dari dashboard admin.</p>
+                        <div class="contact-inbox-list" id="contactInboxList"></div>
+                        <form id="replyContactForm" class="reply-contact-form">
+                            <input type="hidden" id="replyContactId" value="">
+                            <div class="reply-target" id="replyTargetHint">Pilih pesan dari klien untuk membalas.</div>
+                            <div class="form-group">
+                                <label for="replyText">Balasan Admin</label>
+                                <textarea id="replyText" rows="4" placeholder="Tulis balasan resmi untuk klien..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn-save-settings">
+                                <i class="fa-solid fa-paper-plane"></i> Kirim Balasan
+                            </button>
+                            <div class="reply-status" id="replyStatusText"></div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- TAB 5: PROYEK & PORTOFOLIO -->
+                <div class="db-tab-content" id="tab-projects">
+                    <div class="db-card">
+                        <h3>Manajemen Proyek & Portofolio</h3>
+                        <p class="section-desc">Pantau proyek strategis, dokumentasi teknis, dan pencapaian perusahaan.</p>
+                        <div class="admin-card-grid">
+                            <div class="admin-mini-card">
+                                <h4>Proyek Aktif</h4>
+                                <p>12 proyek berjalan</p>
+                            </div>
+                            <div class="admin-mini-card">
+                                <h4>Tender Baru</h4>
+                                <p>4 penawaran menunggu</p>
+                            </div>
+                            <div class="admin-mini-card">
+                                <h4>Klien Prioritas</h4>
+                                <p>8 mitra strategis</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 6: LAPORAN & DOKUMEN -->
+                <div class="db-tab-content" id="tab-reports">
+                    <div class="db-card">
+                        <h3>Laporan & Dokumen Internal</h3>
+                        <p class="section-desc">Akses dokumen teknis, laporan kualitas, dan catatan proyek.</p>
+                        <ul class="document-list">
+                            <li><i class="fa-solid fa-file-pdf"></i> Laporan HSE Bulanan.pdf</li>
+                            <li><i class="fa-solid fa-file-word"></i> Proposal Tender Infrastruktur.docx</li>
+                            <li><i class="fa-solid fa-file-excel"></i> Rekap Produksi Mingguan.xlsx</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- TAB 7: INFORMASI INTERNAL -->
+                <div class="db-tab-content" id="tab-info">
+                    <div class="db-card">
+                        <h3>Papan Pengumuman Perusahaan</h3>
+                        <div class="notice-board">
+                            <div class="notice-item">
+                                <div class="notice-badge new">Penting</div>
+                                <h4>Prosedur Keselamatan Kerja (K3) Baru untuk Pekerjaan Ketinggian</h4>
+                                <p>Sesuai dengan standardisasi ISO 45001 terbaru, seluruh pekerja lapangan wajib menggunakan full-body harness tipe double lanyard yang lolos uji sertifikasi HSE departemen saat melakukan perakitan baja di atas 2 meter.</p>
+                                <span class="notice-date"><i class="fa-regular fa-clock"></i> Diposting pada 8 Juli 2026</span>
+                            </div>
+                            <div class="notice-item">
+                                <h4>Pencapaian 1 Juta Jam Kerja Aman Tanpa LTI</h4>
+                                <p>Manajemen mengucapkan apresiasi sebesar-besarnya kepada seluruh jajaran direksi, staf kantor, dan operator pabrik Bakrie Metal Industries atas terwujudnya 1 juta jam kerja aman berturut-turut tanpa Lost Time Injury (LTI).</p>
+                                <span class="notice-date"><i class="fa-regular fa-clock"></i> Diposting pada 5 Juli 2026</span>
+                            </div>
+                            <div class="notice-item">
+                                <h4>Jadwal Audit Eksternal Sertifikasi Mutu ASME</h4>
+                                <p>Tim auditor dari American Society of Mechanical Engineers (ASME) dijadwalkan akan melakukan penilaian fabrikasi tangki dan pipa tekan pada akhir bulan ini. Harap persiapkan semua dokumentasi QA/QC terkait.</p>
+                                <span class="notice-date"><i class="fa-regular fa-clock"></i> Diposting pada 1 Juli 2026</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 5: SETTINGS -->
+                <div class="db-tab-content" id="tab-settings">
+                    <div class="db-card">
+                        <h3>Pengaturan Profil Administratif</h3>
+                        <p class="section-desc">Sesuaikan informasi dasar profil administrator Anda di sini.</p>
+                        
+                        <div class="alert-box success" id="settingsAlert" style="display: none;">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>Profil berhasil diperbarui!</span>
+                        </div>
+
+                        <form id="settingsForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="adminNameInput">Nama Lengkap</label>
+                                    <input type="text" id="adminNameInput" value="Administrator" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="adminEmailInput">Email Admin</label>
+                                    <input type="email" id="adminEmailInput" value="admin@bakriemetal.co.id" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="adminPasswordInput">Ubah Sandi Baru (Kosongkan jika tidak diubah)</label>
+                                    <input type="password" id="adminPasswordInput" placeholder="Sandi baru">
+                                </div>
+                                <div class="form-group">
+                                    <label for="adminRoleInput">Role Sistem</label>
+                                    <input type="text" id="adminRoleInput" value="Super Admin (Root)" disabled>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-save-settings">
+                                <i class="fa-solid fa-floppy-disk"></i> Simpan Perubahan
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Add Employee Modal Overlay -->
+    <div id="employeeModal" class="modal-overlay">
+        <div class="login-card glass-card employee-modal-card">
+            <button class="close-modal" id="closeEmployeeModalBtn"><i class="fa-solid fa-xmark"></i></button>
+            <div class="login-header">
+                <div class="login-logo">
+                    <i class="fa-solid fa-user-plus"></i>
+                </div>
+                <h2>Buat Akun<span> Karyawan</span></h2>
+                <p>Silakan masukkan detail profil dan kredensial login karyawan baru BMI.</p>
+            </div>
+            
+            <form id="employeeForm" autocomplete="off">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="empNIP">NIP (Nomor Induk Pegawai)</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-address-card"></i>
+                            <input type="text" id="empNIP" placeholder="Contoh: BMI-26012" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="empName">Nama Lengkap</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-signature"></i>
+                            <input type="text" id="empName" placeholder="Masukkan nama lengkap" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="empUsername">Username Akun</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-user-gear"></i>
+                            <input type="text" id="empUsername" placeholder="Contoh: budis123" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="empPassword">Kata Sandi Akun</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-key"></i>
+                            <input type="password" id="empPassword" placeholder="Masukkan kata sandi" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="empPosition">Jabatan</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-briefcase"></i>
+                            <input type="text" id="empPosition" placeholder="Contoh: Quality Control Engineer" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="empEmail">Email Bisnis</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-envelope"></i>
+                            <input type="email" id="empEmail" placeholder="nama@bakriemetal.co.id" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="empDepartment">Departemen</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-sitemap" style="left: 18px; top: 50%; transform: translateY(-50%); position: absolute; pointer-events: none; z-index: 2;"></i>
+                            <select id="empDepartment" required style="padding-left: 48px; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color); border-radius: 12px; height: 50px; color: #fff; width: 100%; -webkit-appearance: none; -moz-appearance: none; appearance: none; outline: none; transition: var(--transition-smooth);">
+                                <option value="" disabled selected style="background: var(--bg-dark);">Pilih Departemen</option>
+                                <option value="Produksi & Fabrikasi" style="background: var(--bg-dark);">Produksi & Fabrikasi</option>
+                                <option value="Quality Assurance & QC" style="background: var(--bg-dark);">Quality Assurance & QC</option>
+                                <option value="HSE & Safety" style="background: var(--bg-dark);">HSE & Safety</option>
+                                <option value="Logistik & Supply Chain" style="background: var(--bg-dark);">Logistik & Supply Chain</option>
+                                <option value="HR & Legal" style="background: var(--bg-dark);">HR & Legal</option>
+                                <option value="Finance & Accounting" style="background: var(--bg-dark);">Finance & Accounting</option>
+                            </select>
+                            <i class="fa-solid fa-chevron-down" style="left: auto; right: 18px;"></i>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="empStatus">Status Aktif</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-toggle-on" style="left: 18px; top: 50%; transform: translateY(-50%); position: absolute; pointer-events: none; z-index: 2;"></i>
+                            <select id="empStatus" required style="padding-left: 48px; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color); border-radius: 12px; height: 50px; color: #fff; width: 100%; -webkit-appearance: none; -moz-appearance: none; appearance: none; outline: none; transition: var(--transition-smooth);">
+                                <option value="Aktif" style="background: var(--bg-dark);">Aktif</option>
+                                <option value="Cuti" style="background: var(--bg-dark);">Cuti</option>
+                                <option value="Nonaktif" style="background: var(--bg-dark);">Nonaktif</option>
+                            </select>
+                            <i class="fa-solid fa-chevron-down" style="left: auto; right: 18px;"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-login-submit" id="saveEmployeeBtn">
+                    <span class="btn-text">Buat Akun & Simpan</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Background decorative grids/glows -->
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
