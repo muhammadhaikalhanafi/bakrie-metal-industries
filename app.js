@@ -178,6 +178,35 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function getAttendanceViewList() {
+        const currentName = (userProfile.name || '').trim();
+        if (!currentName || canManageAccounts()) {
+            return attendanceList;
+        }
+        return attendanceList.filter(item => item.nama === currentName);
+    }
+
+    function ensureOwnAttendanceRecord() {
+        if (canManageAccounts()) return;
+
+        const currentName = (userProfile.name || '').trim();
+        if (!currentName) return;
+
+        const today = new Date().toISOString().slice(0, 10);
+        const existing = attendanceList.find(item => item.nama === currentName && item.tanggal === today);
+
+        if (!existing) {
+            attendanceList.unshift({
+                id: Date.now(),
+                nama: currentName,
+                jabatan: userProfile.role || userProfile.department || 'Karyawan',
+                tanggal: today,
+                status: 'Hadir'
+            });
+            saveAttendanceList();
+        }
+    }
+
     function renderAttendanceTable() {
         const attendanceTableBody = document.getElementById('attendanceTableBody');
         const hadirCount = document.getElementById('attendanceHadirCount');
@@ -187,48 +216,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!attendanceTableBody) return;
 
-        const hadir = attendanceList.filter(item => item.status === 'Hadir').length;
-        const izin = attendanceList.filter(item => item.status === 'Izin').length;
-        const sakit = attendanceList.filter(item => item.status === 'Sakit').length;
+        ensureOwnAttendanceRecord();
+        const viewList = getAttendanceViewList();
+        const hadir = viewList.filter(item => item.status === 'Hadir').length;
+        const izin = viewList.filter(item => item.status === 'Izin').length;
+        const sakit = viewList.filter(item => item.status === 'Sakit').length;
 
         if (hadirCount) hadirCount.textContent = hadir;
         if (izinCount) izinCount.textContent = izin;
         if (sakitCount) sakitCount.textContent = sakit;
         if (attendanceAccessHint) {
-            attendanceAccessHint.textContent = canManageAccounts() ? 'Anda dapat mengubah status absensi di sini.' : 'Hanya admin yang dapat mengubah status absensi.';
+            attendanceAccessHint.textContent = canManageAccounts()
+                ? 'Anda dapat mengubah status absensi semua karyawan.'
+                : 'Anda hanya dapat mengubah absensi untuk diri sendiri.';
         }
 
-        attendanceTableBody.innerHTML = attendanceList.map(item => `
+        attendanceTableBody.innerHTML = viewList.map(item => `
             <tr>
                 <td>${item.nama}</td>
                 <td>${item.jabatan}</td>
                 <td>${item.tanggal}</td>
                 <td>
-                    ${canManageAccounts() ? `
-                        <select class="attendance-select" data-id="${item.id}">
-                            <option value="Hadir" ${item.status === 'Hadir' ? 'selected' : ''}>Hadir</option>
-                            <option value="Izin" ${item.status === 'Izin' ? 'selected' : ''}>Izin</option>
-                            <option value="Sakit" ${item.status === 'Sakit' ? 'selected' : ''}>Sakit</option>
-                        </select>
-                    ` : `<span class="attendance-badge ${item.status.toLowerCase()}">${item.status}</span>`}
+                    <select class="attendance-select" data-id="${item.id}">
+                        <option value="Hadir" ${item.status === 'Hadir' ? 'selected' : ''}>Hadir</option>
+                        <option value="Izin" ${item.status === 'Izin' ? 'selected' : ''}>Izin</option>
+                        <option value="Sakit" ${item.status === 'Sakit' ? 'selected' : ''}>Sakit</option>
+                    </select>
                 </td>
             </tr>
         `).join('');
 
-        if (canManageAccounts()) {
-            attendanceTableBody.querySelectorAll('.attendance-select').forEach(select => {
-                select.addEventListener('change', (e) => {
-                    const id = Number(e.target.getAttribute('data-id'));
-                    const selectedStatus = e.target.value;
-                    const record = attendanceList.find(item => item.id === id);
-                    if (record) {
-                        record.status = selectedStatus;
-                        saveAttendanceList();
-                        renderAttendanceTable();
+        attendanceTableBody.querySelectorAll('.attendance-select').forEach(select => {
+            select.addEventListener('change', (e) => {
+                const id = Number(e.target.getAttribute('data-id'));
+                const selectedStatus = e.target.value;
+                const record = attendanceList.find(item => item.id === id);
+                if (record) {
+                    if (!canManageAccounts() && record.nama !== userProfile.name) {
+                        return;
                     }
-                });
+                    record.status = selectedStatus;
+                    saveAttendanceList();
+                    renderAttendanceTable();
+                }
             });
-        }
+        });
     }
 
     // ================= DYNAMIC WEBSITE SYNC =================
