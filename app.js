@@ -192,6 +192,11 @@ document.addEventListener('DOMContentLoaded', () => {
         return userProfile.canManageAccounts || roleText.includes('hr') || roleText.includes('legal');
     }
 
+    function canViewEmployeeCredentials() {
+        const roleText = `${userProfile.role || ''} ${userProfile.department || ''}`.toLowerCase();
+        return roleText.includes('admin');
+    }
+
     function refreshAccountAccessUI() {
         const addBtn = document.getElementById('addKaryawanBtn');
         if (addBtn) {
@@ -568,14 +573,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const statusClass = emp.status.toLowerCase();
             const tr = document.createElement('tr');
             const canManage = canManageAccounts();
+            const canViewCredentials = canViewEmployeeCredentials();
             tr.innerHTML = `
                 <td><strong>${emp.nip}</strong></td>
                 <td>${emp.nama}</td>
                 <td>${emp.jabatan}</td>
                 <td>${emp.departemen}</td>
                 <td>${emp.email}</td>
-                <td><span class="emp-credential">••••••</span></td>
-                <td><span class="emp-credential">••••••</span></td>
+                <td><span class="emp-credential">${canViewCredentials ? emp.username : '••••••'}</span></td>
+                <td><span class="emp-credential">${canViewCredentials ? emp.sandi : '••••••'}</span></td>
                 <td><span class="emp-status ${statusClass}">${emp.status}</span></td>
                 <td>
                     ${canManage ? `
