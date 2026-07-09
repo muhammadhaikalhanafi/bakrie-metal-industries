@@ -738,6 +738,54 @@ ul {
     box-shadow: 0 0 10px rgba(242, 169, 0, 0.2);
 }
 
+/* ================= HERO SECTION ENHANCEMENTS ================= */
+.hero-company-image,
+.brand-spotlight-image,
+.photo-preview {
+    width: 100%;
+    border-radius: 18px;
+    object-fit: cover;
+    display: block;
+    border: 1px solid rgba(11, 19, 43, 0.08);
+}
+
+.hero-company-image {
+    height: 240px;
+    margin-bottom: 20px;
+}
+
+.brand-spotlight-card {
+    margin-bottom: 24px;
+}
+
+.brand-spotlight-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.brand-spotlight-image {
+    width: 280px;
+    height: 180px;
+}
+
+.photo-preview {
+    margin-top: 12px;
+    max-height: 220px;
+    background: rgba(11, 19, 43, 0.03);
+}
+
+.content-editor-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.announcement-form {
+    margin-bottom: 24px;
+}
+
 /* ================= INFORMASI SECTION ================= */
 .info-section {
     padding: 100px 24px;
@@ -2071,6 +2119,16 @@ footer {
     .db-grid-two {
         grid-template-columns: 1fr;
     }
+
+    .brand-spotlight-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .brand-spotlight-image {
+        width: 100%;
+        height: 200px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -2116,6 +2174,10 @@ footer {
     }
     
     .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .content-editor-grid {
         grid-template-columns: 1fr;
     }
     

@@ -9,18 +9,78 @@ document.addEventListener('DOMContentLoaded', () => {
         canManageAccounts: true
     };
 
-    // Global Website Information State
-    const websiteInfo = {
+    const defaultWebsiteInfo = {
         companyName: 'PT. Bakrie Metal Industries',
         companyDomain: 'bakriemetal.co.id',
         heroTitle: 'Kokoh Terpercaya Membangun Indonesia',
         heroDesc: 'PT. Bakrie Metal Industries menyediakan solusi fabrikasi baja berat, pipa baja berkualitas tinggi, dan jasa konstruksi logam presisi untuk infrastruktur nasional dan industri energi global.',
         phone: '+62 (21) 5290-9999',
         email: 'sales@bakriemetal.co.id',
-        address: 'Bakrie Tower Lantai 35, Rasuna Said Kuningan, Jakarta Selatan, Indonesia'
+        address: 'Bakrie Tower Lantai 35, Rasuna Said Kuningan, Jakarta Selatan, Indonesia',
+        navAboutLabel: 'Tentang',
+        navServicesLabel: 'Layanan',
+        navProjectsLabel: 'Proyek',
+        navTeamLabel: 'Tim',
+        navContactLabel: 'Kontak',
+        aboutSectionTitle: 'Memimpin transformasi industri manufaktur logam di Indonesia',
+        aboutVisionTitle: 'Visi & Misi',
+        aboutVisionText: 'Menjadi mitra strategis nasional dalam fabrikasi baja berat, sistem struktur, dan solusi infrastruktur yang aman, presisi, dan berkelanjutan.',
+        aboutHighlightTitle: 'Keunggulan Utama',
+        aboutMetricOneValue: '500+',
+        aboutMetricTwoValue: '24/7',
+        aboutMetricThreeValue: '98%',
+        aboutBriefTitle: 'Mengapa Memilih Bakrie Metal Industries?',
+        aboutBriefDesc: 'Sebagai bagian dari Bakrie Group, kami memiliki pengalaman puluhan tahun dalam menangani proyek infrastruktur strategis nasional di Indonesia dengan standar mutu dan keselamatan yang ketat.',
+        serviceOneTitle: 'Fabrikasi Baja Berat',
+        serviceOneDesc: 'Fabrikasi struktur baja skala besar untuk jembatan, bangunan bertingkat tinggi, pelabuhan, dan fasilitas industri dengan standar internasional terakreditasi.',
+        serviceTwoTitle: 'Manufaktur Pipa Baja',
+        serviceTwoDesc: 'Produksi pipa baja berkualitas tinggi untuk sektor minyak dan gas bumi, transmisi air, serta konstruksi struktural dengan presisi ketebalan terbaik.',
+        serviceThreeTitle: 'Jasa EPC & Konstruksi',
+        serviceThreeDesc: 'Layanan Engineering, Procurement, dan Construction terpadu untuk memastikan proyek diselesaikan tepat waktu, sesuai spesifikasi, dan aman.',
+        projectOneTitle: 'Jembatan Tol Nasional',
+        projectOneDesc: 'Fabrikasi struktur baja berat untuk penopang utama proyek transportasi nasional.',
+        projectOneMeta: 'Infrastructure • 2025',
+        projectTwoTitle: 'Terminal LNG & Energi',
+        projectTwoDesc: 'Penyediaan pipa baja presisi dan sistem pendukung untuk fasilitas energi.',
+        projectTwoMeta: 'Energy • 2024',
+        projectThreeTitle: 'Gudang Industri Modern',
+        projectThreeDesc: 'Solusi rangka atap, platform, dan struktur komersial skala besar.',
+        projectThreeMeta: 'Industrial • 2023',
+        teamOneName: 'Raja Baruna Putra',
+        teamOneRole: 'Chief Operational Officer',
+        teamTwoName: 'Azira Fitri Elsera',
+        teamTwoRole: 'Head of Engineering',
+        teamThreeName: 'Dean Nugroho',
+        teamThreeRole: 'Project Delivery Lead',
+        brandPhoto: '',
+        dashboardBrandTitle: 'Brand Showcase BMI',
+        dashboardBrandDesc: 'Foto dan pesan visual yang bisa diubah admin untuk menarik perhatian klien dan mitra kerja.'
     };
 
+    function loadWebsiteInfo() {
+        try {
+            const stored = localStorage.getItem('bmiWebsiteInfo');
+            if (stored) {
+                return { ...defaultWebsiteInfo, ...JSON.parse(stored) };
+            }
+        } catch (error) {
+            console.warn('Unable to load website info:', error);
+        }
+        return { ...defaultWebsiteInfo };
+    }
+
+    function saveWebsiteInfo() {
+        try {
+            localStorage.setItem('bmiWebsiteInfo', JSON.stringify(websiteInfo));
+        } catch (error) {
+            console.warn('Unable to save website info:', error);
+        }
+    }
+
+    let websiteInfo = loadWebsiteInfo();
     let contactInbox = loadContactMessages();
+    let announcements = loadAnnouncements();
+    let pendingBrandPhoto = websiteInfo.brandPhoto || '';
 
     function loadContactMessages() {
         try {
@@ -38,6 +98,61 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             console.warn('Unable to save contact inbox:', error);
         }
+    }
+
+    function loadAnnouncements() {
+        try {
+            const stored = localStorage.getItem('bmiAnnouncements');
+            if (stored) {
+                return JSON.parse(stored);
+            }
+        } catch (error) {
+            console.warn('Unable to load announcements:', error);
+        }
+
+        return [
+            {
+                id: 'ann-1',
+                title: 'Prosedur Keselamatan Kerja (K3) Baru untuk Pekerjaan Ketinggian',
+                badge: 'Penting',
+                body: 'Seluruh pekerja lapangan wajib menggunakan full-body harness tipe double lanyard saat bekerja di atas 2 meter.',
+                date: '8 Juli 2026'
+            },
+            {
+                id: 'ann-2',
+                title: 'Pencapaian 1 Juta Jam Kerja Aman Tanpa LTI',
+                badge: 'Info',
+                body: 'Manajemen mengucapkan apresiasi kepada seluruh operator dan staf atas pencapaian tersebut.',
+                date: '5 Juli 2026'
+            }
+        ];
+    }
+
+    function saveAnnouncements() {
+        try {
+            localStorage.setItem('bmiAnnouncements', JSON.stringify(announcements));
+        } catch (error) {
+            console.warn('Unable to save announcements:', error);
+        }
+    }
+
+    function renderAnnouncements() {
+        const noticeBoardList = document.getElementById('noticeBoardList');
+        if (!noticeBoardList) return;
+
+        if (!announcements.length) {
+            noticeBoardList.innerHTML = '<div class="empty-inbox">Belum ada pengumuman untuk karyawan.</div>';
+            return;
+        }
+
+        noticeBoardList.innerHTML = announcements.map(item => `
+            <div class="notice-item">
+                <div class="notice-badge new">${item.badge}</div>
+                <h4>${item.title}</h4>
+                <p>${item.body}</p>
+                <span class="notice-date"><i class="fa-regular fa-clock"></i> Diposting pada ${item.date}</span>
+            </div>
+        `).join('');
     }
 
     function renderContactStatus() {
@@ -265,7 +380,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ================= DYNAMIC WEBSITE SYNC =================
     function syncWebsiteInfo() {
-        // Landing Page Elements
         const liveTitle = document.getElementById('liveHeroTitle');
         const liveDesc = document.getElementById('liveHeroDesc');
         const liveAddress = document.getElementById('liveAddress');
@@ -273,6 +387,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const liveEmail = document.getElementById('liveEmail');
         const brandName = document.getElementById('brandNameDisplay');
         const brandDomain = document.getElementById('brandDomainDisplay');
+        const heroImage = document.getElementById('heroCompanyImage');
+        const dashboardImage = document.getElementById('dashboardBrandImage');
+        const websitePhotoPreview = document.getElementById('websitePhotoPreview');
 
         if (liveTitle) liveTitle.textContent = websiteInfo.heroTitle;
         if (liveDesc) liveDesc.textContent = websiteInfo.heroDesc;
@@ -280,12 +397,38 @@ document.addEventListener('DOMContentLoaded', () => {
         if (livePhone) livePhone.textContent = websiteInfo.phone;
         if (liveEmail) liveEmail.textContent = websiteInfo.email;
 
-        // Admin Website Settings Form Inputs
         const inputTitle = document.getElementById('webHeroTitleInput');
         const inputDesc = document.getElementById('webHeroDescInput');
         const inputPhone = document.getElementById('webPhoneInput');
         const inputEmail = document.getElementById('webEmailInput');
         const inputAddress = document.getElementById('webAddressInput');
+        const navAboutInput = document.getElementById('webNavAboutInput');
+        const navServicesInput = document.getElementById('webNavServicesInput');
+        const navProjectsInput = document.getElementById('webNavProjectsInput');
+        const navTeamInput = document.getElementById('webNavTeamInput');
+        const navContactInput = document.getElementById('webNavContactInput');
+        const aboutTitleInput = document.getElementById('webAboutTitleInput');
+        const aboutDescInput = document.getElementById('webAboutDescInput');
+        const aboutBriefTitleInput = document.getElementById('webAboutBriefTitleInput');
+        const aboutBriefDescInput = document.getElementById('webAboutBriefDescInput');
+        const serviceOneTitleInput = document.getElementById('webServiceOneTitleInput');
+        const serviceOneDescInput = document.getElementById('webServiceOneDescInput');
+        const serviceTwoTitleInput = document.getElementById('webServiceTwoTitleInput');
+        const serviceTwoDescInput = document.getElementById('webServiceTwoDescInput');
+        const serviceThreeTitleInput = document.getElementById('webServiceThreeTitleInput');
+        const serviceThreeDescInput = document.getElementById('webServiceThreeDescInput');
+        const projectOneTitleInput = document.getElementById('webProjectOneTitleInput');
+        const projectOneDescInput = document.getElementById('webProjectOneDescInput');
+        const projectTwoTitleInput = document.getElementById('webProjectTwoTitleInput');
+        const projectTwoDescInput = document.getElementById('webProjectTwoDescInput');
+        const projectThreeTitleInput = document.getElementById('webProjectThreeTitleInput');
+        const projectThreeDescInput = document.getElementById('webProjectThreeDescInput');
+        const teamOneNameInput = document.getElementById('webTeamOneNameInput');
+        const teamOneRoleInput = document.getElementById('webTeamOneRoleInput');
+        const teamTwoNameInput = document.getElementById('webTeamTwoNameInput');
+        const teamTwoRoleInput = document.getElementById('webTeamTwoRoleInput');
+        const teamThreeNameInput = document.getElementById('webTeamThreeNameInput');
+        const teamThreeRoleInput = document.getElementById('webTeamThreeRoleInput');
 
         if (brandName) brandName.textContent = websiteInfo.companyName;
         if (brandDomain) brandDomain.textContent = websiteInfo.companyDomain;
@@ -296,6 +439,126 @@ document.addEventListener('DOMContentLoaded', () => {
         if (inputPhone) inputPhone.value = websiteInfo.phone;
         if (inputEmail) inputEmail.value = websiteInfo.email;
         if (inputAddress) inputAddress.value = websiteInfo.address;
+
+        const navLabels = {
+            about: document.getElementById('navAboutLabel'),
+            services: document.getElementById('navServicesLabel'),
+            projects: document.getElementById('navProjectsLabel'),
+            team: document.getElementById('navTeamLabel'),
+            contact: document.getElementById('navContactLabel')
+        };
+        if (navLabels.about) navLabels.about.textContent = websiteInfo.navAboutLabel;
+        if (navLabels.services) navLabels.services.textContent = websiteInfo.navServicesLabel;
+        if (navLabels.projects) navLabels.projects.textContent = websiteInfo.navProjectsLabel;
+        if (navLabels.team) navLabels.team.textContent = websiteInfo.navTeamLabel;
+        if (navLabels.contact) navLabels.contact.textContent = websiteInfo.navContactLabel;
+
+        const aboutTitle = document.getElementById('aboutSectionTitle');
+        const aboutVisionTitle = document.getElementById('aboutVisionTitle');
+        const aboutVisionText = document.getElementById('aboutVisionText');
+        const aboutHighlightTitle = document.getElementById('aboutHighlightTitle');
+        const aboutMetricOneValue = document.getElementById('aboutMetricOneValue');
+        const aboutMetricTwoValue = document.getElementById('aboutMetricTwoValue');
+        const aboutMetricThreeValue = document.getElementById('aboutMetricThreeValue');
+        const aboutBriefTitle = document.getElementById('aboutBriefTitle');
+        const aboutBriefDesc = document.getElementById('aboutBriefDesc');
+        const serviceOneTitle = document.getElementById('serviceOneTitle');
+        const serviceOneDesc = document.getElementById('serviceOneDesc');
+        const serviceTwoTitle = document.getElementById('serviceTwoTitle');
+        const serviceTwoDesc = document.getElementById('serviceTwoDesc');
+        const serviceThreeTitle = document.getElementById('serviceThreeTitle');
+        const serviceThreeDesc = document.getElementById('serviceThreeDesc');
+        const projectOneTitle = document.getElementById('projectOneTitle');
+        const projectOneDesc = document.getElementById('projectOneDesc');
+        const projectOneMeta = document.getElementById('projectOneMeta');
+        const projectTwoTitle = document.getElementById('projectTwoTitle');
+        const projectTwoDesc = document.getElementById('projectTwoDesc');
+        const projectTwoMeta = document.getElementById('projectTwoMeta');
+        const projectThreeTitle = document.getElementById('projectThreeTitle');
+        const projectThreeDesc = document.getElementById('projectThreeDesc');
+        const projectThreeMeta = document.getElementById('projectThreeMeta');
+        const teamOneName = document.getElementById('teamOneName');
+        const teamOneRole = document.getElementById('teamOneRole');
+        const teamTwoName = document.getElementById('teamTwoName');
+        const teamTwoRole = document.getElementById('teamTwoRole');
+        const teamThreeName = document.getElementById('teamThreeName');
+        const teamThreeRole = document.getElementById('teamThreeRole');
+
+        if (aboutTitle) aboutTitle.textContent = websiteInfo.aboutSectionTitle;
+        if (aboutVisionTitle) aboutVisionTitle.textContent = websiteInfo.aboutVisionTitle;
+        if (aboutVisionText) aboutVisionText.textContent = websiteInfo.aboutVisionText;
+        if (aboutHighlightTitle) aboutHighlightTitle.textContent = websiteInfo.aboutHighlightTitle;
+        if (aboutMetricOneValue) aboutMetricOneValue.textContent = websiteInfo.aboutMetricOneValue;
+        if (aboutMetricTwoValue) aboutMetricTwoValue.textContent = websiteInfo.aboutMetricTwoValue;
+        if (aboutMetricThreeValue) aboutMetricThreeValue.textContent = websiteInfo.aboutMetricThreeValue;
+        if (aboutBriefTitle) aboutBriefTitle.textContent = websiteInfo.aboutBriefTitle;
+        if (aboutBriefDesc) aboutBriefDesc.textContent = websiteInfo.aboutBriefDesc;
+        if (serviceOneTitle) serviceOneTitle.textContent = websiteInfo.serviceOneTitle;
+        if (serviceOneDesc) serviceOneDesc.textContent = websiteInfo.serviceOneDesc;
+        if (serviceTwoTitle) serviceTwoTitle.textContent = websiteInfo.serviceTwoTitle;
+        if (serviceTwoDesc) serviceTwoDesc.textContent = websiteInfo.serviceTwoDesc;
+        if (serviceThreeTitle) serviceThreeTitle.textContent = websiteInfo.serviceThreeTitle;
+        if (serviceThreeDesc) serviceThreeDesc.textContent = websiteInfo.serviceThreeDesc;
+        if (projectOneTitle) projectOneTitle.textContent = websiteInfo.projectOneTitle;
+        if (projectOneDesc) projectOneDesc.textContent = websiteInfo.projectOneDesc;
+        if (projectOneMeta) projectOneMeta.textContent = websiteInfo.projectOneMeta;
+        if (projectTwoTitle) projectTwoTitle.textContent = websiteInfo.projectTwoTitle;
+        if (projectTwoDesc) projectTwoDesc.textContent = websiteInfo.projectTwoDesc;
+        if (projectTwoMeta) projectTwoMeta.textContent = websiteInfo.projectTwoMeta;
+        if (projectThreeTitle) projectThreeTitle.textContent = websiteInfo.projectThreeTitle;
+        if (projectThreeDesc) projectThreeDesc.textContent = websiteInfo.projectThreeDesc;
+        if (projectThreeMeta) projectThreeMeta.textContent = websiteInfo.projectThreeMeta;
+        if (teamOneName) teamOneName.textContent = websiteInfo.teamOneName;
+        if (teamOneRole) teamOneRole.textContent = websiteInfo.teamOneRole;
+        if (teamTwoName) teamTwoName.textContent = websiteInfo.teamTwoName;
+        if (teamTwoRole) teamTwoRole.textContent = websiteInfo.teamTwoRole;
+        if (teamThreeName) teamThreeName.textContent = websiteInfo.teamThreeName;
+        if (teamThreeRole) teamThreeRole.textContent = websiteInfo.teamThreeRole;
+
+        if (navAboutInput) navAboutInput.value = websiteInfo.navAboutLabel;
+        if (navServicesInput) navServicesInput.value = websiteInfo.navServicesLabel;
+        if (navProjectsInput) navProjectsInput.value = websiteInfo.navProjectsLabel;
+        if (navTeamInput) navTeamInput.value = websiteInfo.navTeamLabel;
+        if (navContactInput) navContactInput.value = websiteInfo.navContactLabel;
+        if (aboutTitleInput) aboutTitleInput.value = websiteInfo.aboutSectionTitle;
+        if (aboutDescInput) aboutDescInput.value = websiteInfo.aboutVisionText;
+        if (aboutBriefTitleInput) aboutBriefTitleInput.value = websiteInfo.aboutBriefTitle;
+        if (aboutBriefDescInput) aboutBriefDescInput.value = websiteInfo.aboutBriefDesc;
+        if (serviceOneTitleInput) serviceOneTitleInput.value = websiteInfo.serviceOneTitle;
+        if (serviceOneDescInput) serviceOneDescInput.value = websiteInfo.serviceOneDesc;
+        if (serviceTwoTitleInput) serviceTwoTitleInput.value = websiteInfo.serviceTwoTitle;
+        if (serviceTwoDescInput) serviceTwoDescInput.value = websiteInfo.serviceTwoDesc;
+        if (serviceThreeTitleInput) serviceThreeTitleInput.value = websiteInfo.serviceThreeTitle;
+        if (serviceThreeDescInput) serviceThreeDescInput.value = websiteInfo.serviceThreeDesc;
+        if (projectOneTitleInput) projectOneTitleInput.value = websiteInfo.projectOneTitle;
+        if (projectOneDescInput) projectOneDescInput.value = websiteInfo.projectOneDesc;
+        if (projectTwoTitleInput) projectTwoTitleInput.value = websiteInfo.projectTwoTitle;
+        if (projectTwoDescInput) projectTwoDescInput.value = websiteInfo.projectTwoDesc;
+        if (projectThreeTitleInput) projectThreeTitleInput.value = websiteInfo.projectThreeTitle;
+        if (projectThreeDescInput) projectThreeDescInput.value = websiteInfo.projectThreeDesc;
+        if (teamOneNameInput) teamOneNameInput.value = websiteInfo.teamOneName;
+        if (teamOneRoleInput) teamOneRoleInput.value = websiteInfo.teamOneRole;
+        if (teamTwoNameInput) teamTwoNameInput.value = websiteInfo.teamTwoName;
+        if (teamTwoRoleInput) teamTwoRoleInput.value = websiteInfo.teamTwoRole;
+        if (teamThreeNameInput) teamThreeNameInput.value = websiteInfo.teamThreeName;
+        if (teamThreeRoleInput) teamThreeRoleInput.value = websiteInfo.teamThreeRole;
+
+        const imageSource = websiteInfo.brandPhoto || '';
+        if (heroImage) heroImage.src = imageSource;
+        if (dashboardImage) dashboardImage.src = imageSource;
+        if (websitePhotoPreview) websitePhotoPreview.src = imageSource;
+
+        if (heroImage && !imageSource) {
+            heroImage.style.display = 'none';
+        } else if (heroImage) {
+            heroImage.style.display = 'block';
+        }
+
+        if (dashboardImage && !imageSource) {
+            dashboardImage.style.display = 'none';
+        } else if (dashboardImage) {
+            dashboardImage.style.display = 'block';
+        }
     }
 
     function canManageAccounts() {
@@ -349,6 +612,7 @@ document.addEventListener('DOMContentLoaded', () => {
     syncWebsiteInfo();
     renderContactStatus();
     renderContactInbox();
+    renderAnnouncements();
     refreshAccountAccessUI();
     applyAdminOnlyReadOnlyState();
 
@@ -1000,6 +1264,22 @@ document.addEventListener('DOMContentLoaded', () => {
     // ================= WEBSITE INFO EDITOR HANDLER =================
     const websiteInfoForm = document.getElementById('websiteInfoForm');
     const websiteAlert = document.getElementById('websiteAlert');
+    const brandPhotoInput = document.getElementById('brandPhotoInput');
+
+    if (brandPhotoInput) {
+        brandPhotoInput.addEventListener('change', (event) => {
+            const file = event.target.files && event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = () => {
+                pendingBrandPhoto = reader.result;
+                websiteInfo.brandPhoto = pendingBrandPhoto;
+                syncWebsiteInfo();
+            };
+            reader.readAsDataURL(file);
+        });
+    }
 
     if (websiteInfoForm) {
         websiteInfoForm.addEventListener('submit', (e) => {
@@ -1018,14 +1298,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
             websiteInfo.heroTitle = document.getElementById('webHeroTitleInput').value.trim();
             websiteInfo.heroDesc = document.getElementById('webHeroDescInput').value.trim();
+            websiteInfo.navAboutLabel = document.getElementById('webNavAboutInput').value.trim() || defaultWebsiteInfo.navAboutLabel;
+            websiteInfo.navServicesLabel = document.getElementById('webNavServicesInput').value.trim() || defaultWebsiteInfo.navServicesLabel;
+            websiteInfo.navProjectsLabel = document.getElementById('webNavProjectsInput').value.trim() || defaultWebsiteInfo.navProjectsLabel;
+            websiteInfo.navTeamLabel = document.getElementById('webNavTeamInput').value.trim() || defaultWebsiteInfo.navTeamLabel;
+            websiteInfo.navContactLabel = document.getElementById('webNavContactInput').value.trim() || defaultWebsiteInfo.navContactLabel;
+            websiteInfo.aboutSectionTitle = document.getElementById('webAboutTitleInput').value.trim() || defaultWebsiteInfo.aboutSectionTitle;
+            websiteInfo.aboutVisionText = document.getElementById('webAboutDescInput').value.trim() || defaultWebsiteInfo.aboutVisionText;
+            websiteInfo.aboutBriefTitle = document.getElementById('webAboutBriefTitleInput').value.trim() || defaultWebsiteInfo.aboutBriefTitle;
+            websiteInfo.aboutBriefDesc = document.getElementById('webAboutBriefDescInput').value.trim() || defaultWebsiteInfo.aboutBriefDesc;
+            websiteInfo.serviceOneTitle = document.getElementById('webServiceOneTitleInput').value.trim() || defaultWebsiteInfo.serviceOneTitle;
+            websiteInfo.serviceOneDesc = document.getElementById('webServiceOneDescInput').value.trim() || defaultWebsiteInfo.serviceOneDesc;
+            websiteInfo.serviceTwoTitle = document.getElementById('webServiceTwoTitleInput').value.trim() || defaultWebsiteInfo.serviceTwoTitle;
+            websiteInfo.serviceTwoDesc = document.getElementById('webServiceTwoDescInput').value.trim() || defaultWebsiteInfo.serviceTwoDesc;
+            websiteInfo.serviceThreeTitle = document.getElementById('webServiceThreeTitleInput').value.trim() || defaultWebsiteInfo.serviceThreeTitle;
+            websiteInfo.serviceThreeDesc = document.getElementById('webServiceThreeDescInput').value.trim() || defaultWebsiteInfo.serviceThreeDesc;
+            websiteInfo.projectOneTitle = document.getElementById('webProjectOneTitleInput').value.trim() || defaultWebsiteInfo.projectOneTitle;
+            websiteInfo.projectOneDesc = document.getElementById('webProjectOneDescInput').value.trim() || defaultWebsiteInfo.projectOneDesc;
+            websiteInfo.projectTwoTitle = document.getElementById('webProjectTwoTitleInput').value.trim() || defaultWebsiteInfo.projectTwoTitle;
+            websiteInfo.projectTwoDesc = document.getElementById('webProjectTwoDescInput').value.trim() || defaultWebsiteInfo.projectTwoDesc;
+            websiteInfo.projectThreeTitle = document.getElementById('webProjectThreeTitleInput').value.trim() || defaultWebsiteInfo.projectThreeTitle;
+            websiteInfo.projectThreeDesc = document.getElementById('webProjectThreeDescInput').value.trim() || defaultWebsiteInfo.projectThreeDesc;
+            websiteInfo.teamOneName = document.getElementById('webTeamOneNameInput').value.trim() || defaultWebsiteInfo.teamOneName;
+            websiteInfo.teamOneRole = document.getElementById('webTeamOneRoleInput').value.trim() || defaultWebsiteInfo.teamOneRole;
+            websiteInfo.teamTwoName = document.getElementById('webTeamTwoNameInput').value.trim() || defaultWebsiteInfo.teamTwoName;
+            websiteInfo.teamTwoRole = document.getElementById('webTeamTwoRoleInput').value.trim() || defaultWebsiteInfo.teamTwoRole;
+            websiteInfo.teamThreeName = document.getElementById('webTeamThreeNameInput').value.trim() || defaultWebsiteInfo.teamThreeName;
+            websiteInfo.teamThreeRole = document.getElementById('webTeamThreeRoleInput').value.trim() || defaultWebsiteInfo.teamThreeRole;
             websiteInfo.phone = document.getElementById('webPhoneInput').value.trim();
             websiteInfo.email = document.getElementById('webEmailInput').value.trim();
             websiteInfo.address = document.getElementById('webAddressInput').value.trim();
+            websiteInfo.brandPhoto = pendingBrandPhoto || websiteInfo.brandPhoto || '';
+            websiteInfo.dashboardBrandTitle = document.getElementById('dashboardBrandTitle')?.textContent || websiteInfo.dashboardBrandTitle;
+            websiteInfo.dashboardBrandDesc = document.getElementById('dashboardBrandDesc')?.textContent || websiteInfo.dashboardBrandDesc;
 
-            // Sync text elements in public landing page
+            saveWebsiteInfo();
             syncWebsiteInfo();
 
-            // Show success alert
             if (websiteAlert) {
                 websiteAlert.style.display = 'flex';
                 setTimeout(() => {
@@ -1075,6 +1384,34 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Clear password input
                 document.getElementById('adminPasswordInput').value = '';
             }
+        });
+    }
+
+    // ================= INTERNAL ANNOUNCEMENTS =================
+    const announcementForm = document.getElementById('announcementForm');
+
+    if (announcementForm) {
+        announcementForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const title = document.getElementById('announcementTitleInput').value.trim();
+            const badge = document.getElementById('announcementBadgeInput').value.trim();
+            const body = document.getElementById('announcementBodyInput').value.trim();
+
+            if (!title || !badge || !body) {
+                return;
+            }
+
+            announcements.unshift({
+                id: `ann-${Date.now()}`,
+                title,
+                badge,
+                body,
+                date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })
+            });
+            saveAnnouncements();
+            renderAnnouncements();
+            announcementForm.reset();
         });
     }
 

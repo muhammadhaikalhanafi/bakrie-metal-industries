@@ -33,12 +33,12 @@
                 </a>
                 <nav class="nav-menu" id="navMenu">
                     <ul>
-                        <li><a href="#home" class="nav-link active"><i class="fa-solid fa-house"></i> Beranda</a></li>
-                        <li><a href="#tentang" class="nav-link"><i class="fa-solid fa-building"></i> Tentang</a></li>
-                        <li><a href="#layanan" class="nav-link"><i class="fa-solid fa-screwdriver-wrench"></i> Layanan</a></li>
-                        <li><a href="#proyek" class="nav-link"><i class="fa-solid fa-diagram-project"></i> Proyek</a></li>
-                        <li><a href="#tim" class="nav-link"><i class="fa-solid fa-users"></i> Tim</a></li>
-                        <li><a href="#contact" class="nav-link"><i class="fa-solid fa-envelope"></i> Kontak</a></li>
+                        <li><a href="#home" class="nav-link active"><i class="fa-solid fa-house"></i><span id="navHomeLabel">Beranda</span></a></li>
+                        <li><a href="#tentang" class="nav-link"><i class="fa-solid fa-building"></i><span id="navAboutLabel">Tentang</span></a></li>
+                        <li><a href="#layanan" class="nav-link"><i class="fa-solid fa-screwdriver-wrench"></i><span id="navServicesLabel">Layanan</span></a></li>
+                        <li><a href="#proyek" class="nav-link"><i class="fa-solid fa-diagram-project"></i><span id="navProjectsLabel">Proyek</span></a></li>
+                        <li><a href="#tim" class="nav-link"><i class="fa-solid fa-users"></i><span id="navTeamLabel">Tim</span></a></li>
+                        <li><a href="#contact" class="nav-link"><i class="fa-solid fa-envelope"></i><span id="navContactLabel">Kontak</span></a></li>
                     </ul>
                 </nav>
                 <div class="nav-actions">
@@ -70,6 +70,7 @@
                     <div class="hero-visual">
                         <div class="glass-card visual-card">
                             <div class="card-glow"></div>
+                            <img id="heroCompanyImage" class="hero-company-image" src="" alt="Foto perusahaan BMI">
                             <div class="card-header">
                                 <span class="status-dot online"></span>
                                 <span>BMI Plant Status: Optimal</span>
@@ -110,13 +111,13 @@
             <section id="tentang" class="story-section">
                 <div class="section-header">
                     <span class="section-subtitle">Tentang Perusahaan</span>
-                    <h2>Memimpin transformasi industri manufaktur logam di Indonesia</h2>
+                    <h2 id="aboutSectionTitle">Memimpin transformasi industri manufaktur logam di Indonesia</h2>
                     <div class="header-line"></div>
                 </div>
                 <div class="story-grid">
                     <div class="story-card">
-                        <h3>Visi & Misi</h3>
-                        <p>Menjadi mitra strategis nasional dalam fabrikasi baja berat, sistem struktur, dan solusi infrastruktur yang aman, presisi, dan berkelanjutan.</p>
+                        <h3 id="aboutVisionTitle">Visi & Misi</h3>
+                        <p id="aboutVisionText">Menjadi mitra strategis nasional dalam fabrikasi baja berat, sistem struktur, dan solusi infrastruktur yang aman, presisi, dan berkelanjutan.</p>
                         <ul class="about-list">
                             <li><i class="fa-solid fa-circle-check"></i> Standar mutu internasional</li>
                             <li><i class="fa-solid fa-circle-check"></i> Sipil & energi terpadu</li>
@@ -124,11 +125,11 @@
                         </ul>
                     </div>
                     <div class="story-card highlight-card">
-                        <h3>Keunggulan Utama</h3>
+                        <h3 id="aboutHighlightTitle">Keunggulan Utama</h3>
                         <div class="stat-list">
-                            <div class="company-stat"><strong>500+</strong><span>Proyek selesai</span></div>
-                            <div class="company-stat"><strong>24/7</strong><span>Monitoring produksi</span></div>
-                            <div class="company-stat"><strong>98%</strong><span>Retention klien strategis</span></div>
+                            <div class="company-stat"><strong id="aboutMetricOneValue">500+</strong><span>Proyek selesai</span></div>
+                            <div class="company-stat"><strong id="aboutMetricTwoValue">24/7</strong><span>Monitoring produksi</span></div>
+                            <div class="company-stat"><strong id="aboutMetricThreeValue">98%</strong><span>Retention klien strategis</span></div>
                         </div>
                     </div>
                 </div>
@@ -144,20 +145,20 @@
                 <div class="info-grid">
                     <div class="info-card">
                         <div class="card-icon"><i class="fa-solid fa-industry"></i></div>
-                        <h3>Fabrikasi Baja Berat</h3>
-                        <p>Fabrikasi struktur baja skala besar untuk jembatan, bangunan bertingkat tinggi, pelabuhan, dan fasilitas industri dengan standar internasional terakreditasi.</p>
+                        <h3 id="serviceOneTitle">Fabrikasi Baja Berat</h3>
+                        <p id="serviceOneDesc">Fabrikasi struktur baja skala besar untuk jembatan, bangunan bertingkat tinggi, pelabuhan, dan fasilitas industri dengan standar internasional terakreditasi.</p>
                         <a href="#contact" class="card-link">Pelajari lebih lanjut <i class="fa-solid fa-angle-right"></i></a>
                     </div>
                     <div class="info-card">
                         <div class="card-icon"><i class="fa-solid fa-lines-leaning"></i></div>
-                        <h3>Manufaktur Pipa Baja</h3>
-                        <p>Produksi pipa baja berkualitas tinggi untuk sektor minyak dan gas bumi, transmisi air, serta konstruksi struktural dengan presisi ketebalan terbaik.</p>
+                        <h3 id="serviceTwoTitle">Manufaktur Pipa Baja</h3>
+                        <p id="serviceTwoDesc">Produksi pipa baja berkualitas tinggi untuk sektor minyak dan gas bumi, transmisi air, serta konstruksi struktural dengan presisi ketebalan terbaik.</p>
                         <a href="#contact" class="card-link">Pelajari lebih lanjut <i class="fa-solid fa-angle-right"></i></a>
                     </div>
                     <div class="info-card">
                         <div class="card-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
-                        <h3>Jasa EPC & Konstruksi</h3>
-                        <p>Layanan Engineering, Procurement, dan Construction terpadu untuk memastikan proyek diselesaikan tepat waktu, sesuai spesifikasi, dan aman.</p>
+                        <h3 id="serviceThreeTitle">Jasa EPC & Konstruksi</h3>
+                        <p id="serviceThreeDesc">Layanan Engineering, Procurement, dan Construction terpadu untuk memastikan proyek diselesaikan tepat waktu, sesuai spesifikasi, dan aman.</p>
                         <a href="#contact" class="card-link">Pelajari lebih lanjut <i class="fa-solid fa-angle-right"></i></a>
                     </div>
                 </div>
@@ -169,8 +170,8 @@
                         </div>
                     </div>
                     <div class="about-content">
-                        <h3>Mengapa Memilih Bakrie Metal Industries?</h3>
-                        <p>Sebagai bagian dari Bakrie Group, kami memiliki pengalaman puluhan tahun dalam menangani proyek infrastruktur strategis nasional di Indonesia dengan standar mutu dan keselamatan yang ketat.</p>
+                        <h3 id="aboutBriefTitle">Mengapa Memilih Bakrie Metal Industries?</h3>
+                        <p id="aboutBriefDesc">Sebagai bagian dari Bakrie Group, kami memiliki pengalaman puluhan tahun dalam menangani proyek infrastruktur strategis nasional di Indonesia dengan standar mutu dan keselamatan yang ketat.</p>
                         <ul class="about-list">
                             <li><i class="fa-solid fa-circle-check"></i> Sertifikasi ISO 9001, 14001, & ISO 45001</li>
                             <li><i class="fa-solid fa-circle-check"></i> Fasilitas Fabrikasi Modern dan Luas</li>
@@ -189,19 +190,19 @@
                 </div>
                 <div class="portfolio-grid">
                     <article class="project-card">
-                        <h3>Jembatan Tol Nasional</h3>
-                        <p>Fabrikasi struktur baja berat untuk penopang utama proyek transportasi nasional.</p>
-                        <span>Infrastructure • 2025</span>
+                        <h3 id="projectOneTitle">Jembatan Tol Nasional</h3>
+                        <p id="projectOneDesc">Fabrikasi struktur baja berat untuk penopang utama proyek transportasi nasional.</p>
+                        <span id="projectOneMeta">Infrastructure • 2025</span>
                     </article>
                     <article class="project-card">
-                        <h3>Terminal LNG & Energi</h3>
-                        <p>Penyediaan pipa baja presisi dan sistem pendukung untuk fasilitas energi.</p>
-                        <span>Energy • 2024</span>
+                        <h3 id="projectTwoTitle">Terminal LNG & Energi</h3>
+                        <p id="projectTwoDesc">Penyediaan pipa baja presisi dan sistem pendukung untuk fasilitas energi.</p>
+                        <span id="projectTwoMeta">Energy • 2024</span>
                     </article>
                     <article class="project-card">
-                        <h3>Gudang Industri Modern</h3>
-                        <p>Solusi rangka atap, platform, dan struktur komersial skala besar.</p>
-                        <span>Industrial • 2023</span>
+                        <h3 id="projectThreeTitle">Gudang Industri Modern</h3>
+                        <p id="projectThreeDesc">Solusi rangka atap, platform, dan struktur komersial skala besar.</p>
+                        <span id="projectThreeMeta">Industrial • 2023</span>
                     </article>
                 </div>
             </section>
@@ -215,18 +216,16 @@
                 </div>
                 <div class="team-grid">
                     <div class="team-card">
-                        <h3>Raja Baruna Putra</h3>
-                        <p>Chief Operational Officer</p>
+                        <h3 id="teamOneName">Raja Baruna Putra</h3>
+                        <p id="teamOneRole">Chief Operational Officer</p>
                     </div>
                     <div class="team-card">
-                        <h3>Azira Fitri Elsera</h3>
-                        <p>Head of Engineering</p>
+                        <h3 id="teamTwoName">Azira Fitri Elsera</h3>
+                        <p id="teamTwoRole">Head of Engineering</p>
                     </div>
                     <div class="team-card">
-                        <h3>Dean Nugroho
-                        
-                        </h3>
-                        <p>Project Delivery Lead</p>
+                        <h3 id="teamThreeName">Dean Nugroho</h3>
+                        <p id="teamThreeRole">Project Delivery Lead</p>
                     </div>
                 </div>
             </section>
@@ -450,6 +449,17 @@
                         </div>
                     </div>
 
+                    <div class="db-card brand-spotlight-card">
+                        <div class="brand-spotlight-content">
+                            <div>
+                                <span class="section-subtitle">Visual Perusahaan</span>
+                                <h3 id="dashboardBrandTitle">Brand Showcase BMI</h3>
+                                <p id="dashboardBrandDesc">Foto dan pesan visual yang bisa diubah admin untuk menarik perhatian klien dan mitra kerja.</p>
+                            </div>
+                            <img id="dashboardBrandImage" class="brand-spotlight-image" src="" alt="Visual dashboard BMI">
+                        </div>
+                    </div>
+
                     <div class="db-grid-two">
                         <!-- Chart Card -->
                         <div class="db-card visual-chart-card">
@@ -622,6 +632,129 @@
                                 <label for="webHeroDescInput">Deskripsi Singkat Hero</label>
                                 <textarea id="webHeroDescInput" rows="3" required></textarea>
                             </div>
+
+                            <div class="content-editor-grid">
+                                <div class="form-group">
+                                    <label for="webNavAboutInput">Label Menu Tentang</label>
+                                    <input type="text" id="webNavAboutInput">
+                                </div>
+                                <div class="form-group">
+                                    <label for="webNavServicesInput">Label Menu Layanan</label>
+                                    <input type="text" id="webNavServicesInput">
+                                </div>
+                                <div class="form-group">
+                                    <label for="webNavProjectsInput">Label Menu Proyek</label>
+                                    <input type="text" id="webNavProjectsInput">
+                                </div>
+                                <div class="form-group">
+                                    <label for="webNavTeamInput">Label Menu Tim</label>
+                                    <input type="text" id="webNavTeamInput">
+                                </div>
+                                <div class="form-group">
+                                    <label for="webNavContactInput">Label Menu Kontak</label>
+                                    <input type="text" id="webNavContactInput">
+                                </div>
+                            </div>
+
+                            <div class="content-editor-grid">
+                                <div class="form-group">
+                                    <label for="webAboutTitleInput">Judul Bagian Tentang</label>
+                                    <input type="text" id="webAboutTitleInput">
+                                </div>
+                                <div class="form-group">
+                                    <label for="webAboutDescInput">Deskripsi Bagian Tentang</label>
+                                    <textarea id="webAboutDescInput" rows="3"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="webAboutBriefTitleInput">Judul Mengapa Memilih Kami</label>
+                                    <input type="text" id="webAboutBriefTitleInput">
+                                </div>
+                                <div class="form-group">
+                                    <label for="webAboutBriefDescInput">Deskripsi Mengapa Memilih Kami</label>
+                                    <textarea id="webAboutBriefDescInput" rows="3"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="content-editor-grid">
+                                <div class="form-group">
+                                    <label for="webServiceOneTitleInput">Judul Layanan 1</label>
+                                    <input type="text" id="webServiceOneTitleInput">
+                                </div>
+                                <div class="form-group">
+                                    <label for="webServiceOneDescInput">Deskripsi Layanan 1</label>
+                                    <textarea id="webServiceOneDescInput" rows="2"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="webServiceTwoTitleInput">Judul Layanan 2</label>
+                                    <input type="text" id="webServiceTwoTitleInput">
+                                </div>
+                                <div class="form-group">
+                                    <label for="webServiceTwoDescInput">Deskripsi Layanan 2</label>
+                                    <textarea id="webServiceTwoDescInput" rows="2"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="webServiceThreeTitleInput">Judul Layanan 3</label>
+                                    <input type="text" id="webServiceThreeTitleInput">
+                                </div>
+                                <div class="form-group">
+                                    <label for="webServiceThreeDescInput">Deskripsi Layanan 3</label>
+                                    <textarea id="webServiceThreeDescInput" rows="2"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="content-editor-grid">
+                                <div class="form-group">
+                                    <label for="webProjectOneTitleInput">Judul Proyek 1</label>
+                                    <input type="text" id="webProjectOneTitleInput">
+                                </div>
+                                <div class="form-group">
+                                    <label for="webProjectOneDescInput">Deskripsi Proyek 1</label>
+                                    <textarea id="webProjectOneDescInput" rows="2"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="webProjectTwoTitleInput">Judul Proyek 2</label>
+                                    <input type="text" id="webProjectTwoTitleInput">
+                                </div>
+                                <div class="form-group">
+                                    <label for="webProjectTwoDescInput">Deskripsi Proyek 2</label>
+                                    <textarea id="webProjectTwoDescInput" rows="2"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="webProjectThreeTitleInput">Judul Proyek 3</label>
+                                    <input type="text" id="webProjectThreeTitleInput">
+                                </div>
+                                <div class="form-group">
+                                    <label for="webProjectThreeDescInput">Deskripsi Proyek 3</label>
+                                    <textarea id="webProjectThreeDescInput" rows="2"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="content-editor-grid">
+                                <div class="form-group">
+                                    <label for="webTeamOneNameInput">Nama Tim 1</label>
+                                    <input type="text" id="webTeamOneNameInput">
+                                </div>
+                                <div class="form-group">
+                                    <label for="webTeamOneRoleInput">Jabatan Tim 1</label>
+                                    <input type="text" id="webTeamOneRoleInput">
+                                </div>
+                                <div class="form-group">
+                                    <label for="webTeamTwoNameInput">Nama Tim 2</label>
+                                    <input type="text" id="webTeamTwoNameInput">
+                                </div>
+                                <div class="form-group">
+                                    <label for="webTeamTwoRoleInput">Jabatan Tim 2</label>
+                                    <input type="text" id="webTeamTwoRoleInput">
+                                </div>
+                                <div class="form-group">
+                                    <label for="webTeamThreeNameInput">Nama Tim 3</label>
+                                    <input type="text" id="webTeamThreeNameInput">
+                                </div>
+                                <div class="form-group">
+                                    <label for="webTeamThreeRoleInput">Jabatan Tim 3</label>
+                                    <input type="text" id="webTeamThreeRoleInput">
+                                </div>
+                            </div>
                             
                             <div class="form-row">
                                 <div class="form-group">
@@ -637,6 +770,12 @@
                             <div class="form-group">
                                 <label for="webAddressInput">Alamat Kantor Pusat</label>
                                 <textarea id="webAddressInput" rows="2" required></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="brandPhotoInput">Upload Foto / Banner Perusahaan</label>
+                                <input type="file" id="brandPhotoInput" accept="image/*">
+                                <img id="websitePhotoPreview" class="photo-preview" src="" alt="Preview foto perusahaan">
                             </div>
                             
                             <button type="submit" class="btn-save-settings">
@@ -706,24 +845,27 @@
                 <div class="db-tab-content" id="tab-info">
                     <div class="db-card">
                         <h3>Papan Pengumuman Perusahaan</h3>
-                        <div class="notice-board">
-                            <div class="notice-item">
-                                <div class="notice-badge new">Penting</div>
-                                <h4>Prosedur Keselamatan Kerja (K3) Baru untuk Pekerjaan Ketinggian</h4>
-                                <p>Sesuai dengan standardisasi ISO 45001 terbaru, seluruh pekerja lapangan wajib menggunakan full-body harness tipe double lanyard yang lolos uji sertifikasi HSE departemen saat melakukan perakitan baja di atas 2 meter.</p>
-                                <span class="notice-date"><i class="fa-regular fa-clock"></i> Diposting pada 8 Juli 2026</span>
+                        <p class="section-desc">Buat pengumuman penting untuk karyawan dan tampilkan informasi yang terbaru di dashboard internal.</p>
+                        <form id="announcementForm" class="announcement-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="announcementTitleInput">Judul Pengumuman</label>
+                                    <input type="text" id="announcementTitleInput" placeholder="Contoh: Jadwal inspeksi minggu ini" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="announcementBadgeInput">Kategori</label>
+                                    <input type="text" id="announcementBadgeInput" placeholder="Contoh: Penting / HR / K3" required>
+                                </div>
                             </div>
-                            <div class="notice-item">
-                                <h4>Pencapaian 1 Juta Jam Kerja Aman Tanpa LTI</h4>
-                                <p>Manajemen mengucapkan apresiasi sebesar-besarnya kepada seluruh jajaran direksi, staf kantor, dan operator pabrik Bakrie Metal Industries atas terwujudnya 1 juta jam kerja aman berturut-turut tanpa Lost Time Injury (LTI).</p>
-                                <span class="notice-date"><i class="fa-regular fa-clock"></i> Diposting pada 5 Juli 2026</span>
+                            <div class="form-group">
+                                <label for="announcementBodyInput">Isi Pengumuman</label>
+                                <textarea id="announcementBodyInput" rows="3" placeholder="Tuliskan informasi untuk seluruh karyawan" required></textarea>
                             </div>
-                            <div class="notice-item">
-                                <h4>Jadwal Audit Eksternal Sertifikasi Mutu ASME</h4>
-                                <p>Tim auditor dari American Society of Mechanical Engineers (ASME) dijadwalkan akan melakukan penilaian fabrikasi tangki dan pipa tekan pada akhir bulan ini. Harap persiapkan semua dokumentasi QA/QC terkait.</p>
-                                <span class="notice-date"><i class="fa-regular fa-clock"></i> Diposting pada 1 Juli 2026</span>
-                            </div>
-                        </div>
+                            <button type="submit" class="btn-save-settings">
+                                <i class="fa-solid fa-bullhorn"></i> Posting ke Karyawan
+                            </button>
+                        </form>
+                        <div class="notice-board" id="noticeBoardList"></div>
                     </div>
                 </div>
 
