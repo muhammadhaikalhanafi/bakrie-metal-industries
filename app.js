@@ -119,6 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         return [
+            { nip: 'BMI-ADMIN-01', nama: 'Administrator BMI', jabatan: 'System Administrator', departemen: 'Admin', email: 'admin@bakriemetal.co.id', username: 'adminbmi', sandi: 'Admin123!', status: 'Aktif', role: 'Admin', canManageAccounts: true },
             { nip: 'BMI-22010', nama: 'Budi Santoso', jabatan: 'Welding Supervisor', departemen: 'Produksi & Fabrikasi', email: 'budi.santoso@bakriemetal.co.id', username: 'bus', sandi: '123', status: 'Aktif', role: 'Karyawan' },
             { nip: 'BMI-24018', nama: 'Siti Rahmawati', jabatan: 'Quality Control Engineer', departemen: 'Quality Assurance & QC', email: 'siti.rahma@bakriemetal.co.id', username: 'sitir', sandi: 'pwd123Sit', status: 'Aktif', role: 'Karyawan' },
             { nip: 'BMI-23005', nama: 'Adi Wijaya', jabatan: 'HSE Safety Officer', departemen: 'HSE & Safety', email: 'adi.wijaya@bakriemetal.co.id', username: 'adiw', sandi: 'pwd123Adi', status: 'Aktif', role: 'Karyawan' },
@@ -362,14 +363,16 @@ document.addEventListener('DOMContentLoaded', () => {
             spinner.style.display = 'inline-block';
 
             setTimeout(() => {
-                const isAdmin = usernameInput === 'admin' && passwordInput === 'password123';
-                const matchingAccount = !isAdmin ? karyawanList.find(acc => acc.username.toLowerCase() === usernameInput.toLowerCase() && acc.sandi === passwordInput && acc.status && acc.status.toLowerCase() === 'aktif') : null;
+                const normalizedUsername = usernameInput.toLowerCase();
+                const legacyAdmin = usernameInput === 'admin' && passwordInput === 'password123';
+                const matchingAccount = !legacyAdmin ? karyawanList.find(acc => acc.username.toLowerCase() === normalizedUsername && acc.sandi === passwordInput && acc.status && acc.status.toLowerCase() === 'aktif') : null;
+                const isAdminAccount = legacyAdmin || (matchingAccount && (matchingAccount.role?.toLowerCase() === 'admin' || matchingAccount.canManageAccounts || matchingAccount.departemen?.toLowerCase() === 'admin'));
 
-                if (isAdmin) {
-                    userProfile.name = 'Administrator';
-                    userProfile.email = 'admin@bakriemetal.co.id';
-                    userProfile.role = 'Super Admin (Root)';
-                    userProfile.department = 'Admin';
+                if (legacyAdmin || isAdminAccount) {
+                    userProfile.name = matchingAccount?.nama || 'Administrator';
+                    userProfile.email = matchingAccount?.email || 'admin@bakriemetal.co.id';
+                    userProfile.role = matchingAccount?.jabatan || matchingAccount?.role || 'Super Admin (Root)';
+                    userProfile.department = matchingAccount?.departemen || 'Admin';
                     userProfile.canManageAccounts = true;
                     closeModal();
                     enterDashboard();
