@@ -574,8 +574,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>${emp.jabatan}</td>
                 <td>${emp.departemen}</td>
                 <td>${emp.email}</td>
-                <td><span class="emp-credential">${emp.username}</span></td>
-                <td><span class="emp-credential">${emp.sandi}</span></td>
+                <td><span class="emp-credential">••••••</span></td>
+                <td><span class="emp-credential">••••••</span></td>
                 <td><span class="emp-status ${statusClass}">${emp.status}</span></td>
                 <td>
                     ${canManage ? `
