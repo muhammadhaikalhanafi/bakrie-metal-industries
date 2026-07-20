@@ -376,12 +376,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 const currentName = (userProfile.name || '').trim();
                 const today = new Date().toISOString().slice(0, 10);
+                const currentTime = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
                 
                 attendanceList.unshift({
                     id: Date.now(),
                     nama: currentName,
                     jabatan: userProfile.role || userProfile.department || 'Karyawan',
                     tanggal: today,
+                    waktu: currentTime,
                     status: statusInput.value
                 });
                 saveAttendanceList();
@@ -419,7 +421,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <tr>
                 <td>${item.nama}</td>
                 <td>${item.jabatan}</td>
-                <td>${item.tanggal}</td>
+                <td>${item.tanggal} <br><small style="color:var(--text-secondary)">${item.waktu ? item.waktu : '-'}</small></td>
                 <td>
                     <select class="attendance-select" data-id="${item.id}">
                         <option value="Hadir" ${item.status === 'Hadir' ? 'selected' : ''}>Hadir</option>
