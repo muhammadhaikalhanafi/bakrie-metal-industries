@@ -21,7 +21,13 @@ document.addEventListener('DOMContentLoaded', () => {
         navServicesLabel: 'Layanan',
         navProjectsLabel: 'Proyek',
         navTeamLabel: 'Tim',
+        navTeamLabel: 'Tim',
         navContactLabel: 'Kontak',
+        navNewsLabel: 'Berita',
+        navCareerLabel: 'Karir',
+        newsSectionTitle: 'Kabar Terbaru dari BMI',
+        careerSectionTitle: 'Bergabunglah Membangun Negeri Bersama Kami',
+        careerSectionDesc: 'Kami selalu mencari talenta terbaik di bidang engineering, fabrikasi, dan manajemen proyek untuk berkembang bersama BMI.',
         aboutSectionTitle: 'Memimpin transformasi industri manufaktur logam di Indonesia',
         aboutVisionTitle: 'Visi & Misi',
         aboutVisionText: 'Menjadi mitra strategis nasional dalam fabrikasi baja berat, sistem struktur, dan solusi infrastruktur yang aman, presisi, dan berkelanjutan.',
@@ -80,7 +86,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let websiteInfo = loadWebsiteInfo();
     let contactInbox = loadContactMessages();
     let announcements = loadAnnouncements();
+    let todayProjects = loadTodayProjects();
     let pendingBrandPhoto = websiteInfo.brandPhoto || '';
+    let galleryImages = websiteInfo.galleryImages || [];
 
     function loadContactMessages() {
         try {
@@ -134,6 +142,43 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             console.warn('Unable to save announcements:', error);
         }
+    }
+
+    function loadTodayProjects() {
+        try {
+            const stored = localStorage.getItem('bmiTodayProjects');
+            return stored ? JSON.parse(stored) : [];
+        } catch (error) {
+            console.warn('Unable to load today projects:', error);
+            return [];
+        }
+    }
+
+    function saveTodayProjects() {
+        try {
+            localStorage.setItem('bmiTodayProjects', JSON.stringify(todayProjects));
+        } catch (error) {
+            console.warn('Unable to save today projects:', error);
+        }
+    }
+
+    function renderTodayProjects() {
+        const todayProjectList = document.getElementById('todayProjectList');
+        if (!todayProjectList) return;
+
+        if (!todayProjects.length) {
+            todayProjectList.innerHTML = '<div class="empty-inbox">Belum ada project hari ini.</div>';
+            return;
+        }
+
+        todayProjectList.innerHTML = todayProjects.map(project => `
+            <div class="notice-item">
+                <div class="notice-badge new">${project.time}</div>
+                <h4>${project.title}</h4>
+                <p>${project.details}</p>
+                <span class="notice-date"><i class="fa-regular fa-clock"></i> Dibagikan oleh ${project.author}</span>
+            </div>
+        `).join('');
     }
 
     function renderAnnouncements() {
@@ -301,24 +346,48 @@ document.addEventListener('DOMContentLoaded', () => {
         return attendanceList.filter(item => item.nama === currentName);
     }
 
-    function ensureOwnAttendanceRecord() {
-        if (canManageAccounts()) return;
-
+    function checkAttendanceStatus() {
         const currentName = (userProfile.name || '').trim();
-        if (!currentName) return;
-
+        if (!currentName) return false;
         const today = new Date().toISOString().slice(0, 10);
-        const existing = attendanceList.find(item => item.nama === currentName && item.tanggal === today);
+        return attendanceList.some(item => item.nama === currentName && item.tanggal === today);
+    }
 
-        if (!existing) {
-            attendanceList.unshift({
-                id: Date.now(),
-                nama: currentName,
-                jabatan: userProfile.role || userProfile.department || 'Karyawan',
-                tanggal: today,
-                status: 'Hadir'
+    function initAttendanceForm() {
+        const submissionArea = document.getElementById('attendanceSubmissionArea');
+        const successAlert = document.getElementById('attendanceSuccessAlert');
+        const dailyForm = document.getElementById('dailyAttendanceForm');
+        
+        if (!submissionArea || !successAlert || !dailyForm) return;
+
+        if (checkAttendanceStatus()) {
+            submissionArea.style.display = 'none';
+            successAlert.style.display = 'flex';
+        } else {
+            submissionArea.style.display = 'block';
+            successAlert.style.display = 'none';
+        }
+
+        if (!dailyForm.hasAttribute('data-initialized')) {
+            dailyForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const statusInput = document.getElementById('attendanceStatusInput');
+                if (!statusInput) return;
+                
+                const currentName = (userProfile.name || '').trim();
+                const today = new Date().toISOString().slice(0, 10);
+                
+                attendanceList.unshift({
+                    id: Date.now(),
+                    nama: currentName,
+                    jabatan: userProfile.role || userProfile.department || 'Karyawan',
+                    tanggal: today,
+                    status: statusInput.value
+                });
+                saveAttendanceList();
+                renderAttendanceTable();
             });
-            saveAttendanceList();
+            dailyForm.setAttribute('data-initialized', 'true');
         }
     }
 
@@ -331,7 +400,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!attendanceTableBody) return;
 
-        ensureOwnAttendanceRecord();
+        initAttendanceForm();
         const viewList = getAttendanceViewList();
         const hadir = viewList.filter(item => item.status === 'Hadir').length;
         const izin = viewList.filter(item => item.status === 'Izin').length;
@@ -387,9 +456,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const liveEmail = document.getElementById('liveEmail');
         const brandName = document.getElementById('brandNameDisplay');
         const brandDomain = document.getElementById('brandDomainDisplay');
-        const heroImage = document.getElementById('heroCompanyImage');
+        const heroImage = document.getElementById('heroGalleryImage');
         const dashboardImage = document.getElementById('dashboardBrandImage');
         const websitePhotoPreview = document.getElementById('websitePhotoPreview');
+        const galleryPreview1 = document.getElementById('galleryPreview1');
+        const galleryPreview2 = document.getElementById('galleryPreview2');
+        const galleryPreview3 = document.getElementById('galleryPreview3');
 
         if (liveTitle) liveTitle.textContent = websiteInfo.heroTitle;
         if (liveDesc) liveDesc.textContent = websiteInfo.heroDesc;
@@ -405,8 +477,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const navAboutInput = document.getElementById('webNavAboutInput');
         const navServicesInput = document.getElementById('webNavServicesInput');
         const navProjectsInput = document.getElementById('webNavProjectsInput');
+        const navNewsInput = document.getElementById('webNavNewsInput');
+        const navCareerInput = document.getElementById('webNavCareerInput');
         const navTeamInput = document.getElementById('webNavTeamInput');
         const navContactInput = document.getElementById('webNavContactInput');
+        const newsTitleInput = document.getElementById('webNewsTitleInput');
+        const careerTitleInput = document.getElementById('webCareerTitleInput');
+        const careerDescInput = document.getElementById('webCareerDescInput');
         const aboutTitleInput = document.getElementById('webAboutTitleInput');
         const aboutDescInput = document.getElementById('webAboutDescInput');
         const aboutBriefTitleInput = document.getElementById('webAboutBriefTitleInput');
@@ -444,16 +521,23 @@ document.addEventListener('DOMContentLoaded', () => {
             about: document.getElementById('navAboutLabel'),
             services: document.getElementById('navServicesLabel'),
             projects: document.getElementById('navProjectsLabel'),
+            news: document.getElementById('navNewsLabel'),
+            career: document.getElementById('navCareerLabel'),
             team: document.getElementById('navTeamLabel'),
             contact: document.getElementById('navContactLabel')
         };
         if (navLabels.about) navLabels.about.textContent = websiteInfo.navAboutLabel;
         if (navLabels.services) navLabels.services.textContent = websiteInfo.navServicesLabel;
         if (navLabels.projects) navLabels.projects.textContent = websiteInfo.navProjectsLabel;
+        if (navLabels.news) navLabels.news.textContent = websiteInfo.navNewsLabel;
+        if (navLabels.career) navLabels.career.textContent = websiteInfo.navCareerLabel;
         if (navLabels.team) navLabels.team.textContent = websiteInfo.navTeamLabel;
         if (navLabels.contact) navLabels.contact.textContent = websiteInfo.navContactLabel;
 
         const aboutTitle = document.getElementById('aboutSectionTitle');
+        const newsSectionTitle = document.getElementById('newsSectionTitle');
+        const careerSectionTitle = document.getElementById('careerSectionTitle');
+        const careerSectionDesc = document.getElementById('careerSectionDesc');
         const aboutVisionTitle = document.getElementById('aboutVisionTitle');
         const aboutVisionText = document.getElementById('aboutVisionText');
         const aboutHighlightTitle = document.getElementById('aboutHighlightTitle');
@@ -514,12 +598,21 @@ document.addEventListener('DOMContentLoaded', () => {
         if (teamTwoRole) teamTwoRole.textContent = websiteInfo.teamTwoRole;
         if (teamThreeName) teamThreeName.textContent = websiteInfo.teamThreeName;
         if (teamThreeRole) teamThreeRole.textContent = websiteInfo.teamThreeRole;
+        
+        if (newsSectionTitle) newsSectionTitle.textContent = websiteInfo.newsSectionTitle;
+        if (careerSectionTitle) careerSectionTitle.textContent = websiteInfo.careerSectionTitle;
+        if (careerSectionDesc) careerSectionDesc.textContent = websiteInfo.careerSectionDesc;
 
         if (navAboutInput) navAboutInput.value = websiteInfo.navAboutLabel;
         if (navServicesInput) navServicesInput.value = websiteInfo.navServicesLabel;
         if (navProjectsInput) navProjectsInput.value = websiteInfo.navProjectsLabel;
+        if (navNewsInput) navNewsInput.value = websiteInfo.navNewsLabel;
+        if (navCareerInput) navCareerInput.value = websiteInfo.navCareerLabel;
         if (navTeamInput) navTeamInput.value = websiteInfo.navTeamLabel;
         if (navContactInput) navContactInput.value = websiteInfo.navContactLabel;
+        if (newsTitleInput) newsTitleInput.value = websiteInfo.newsSectionTitle;
+        if (careerTitleInput) careerTitleInput.value = websiteInfo.careerSectionTitle;
+        if (careerDescInput) careerDescInput.value = websiteInfo.careerSectionDesc;
         if (aboutTitleInput) aboutTitleInput.value = websiteInfo.aboutSectionTitle;
         if (aboutDescInput) aboutDescInput.value = websiteInfo.aboutVisionText;
         if (aboutBriefTitleInput) aboutBriefTitleInput.value = websiteInfo.aboutBriefTitle;
@@ -544,11 +637,15 @@ document.addEventListener('DOMContentLoaded', () => {
         if (teamThreeRoleInput) teamThreeRoleInput.value = websiteInfo.teamThreeRole;
 
         const imageSource = websiteInfo.brandPhoto || '';
-        if (heroImage) heroImage.src = imageSource;
+        const slideImages = Array.isArray(websiteInfo.galleryImages) ? websiteInfo.galleryImages : [];
+        if (heroImage) heroImage.src = slideImages[0] || imageSource || '';
         if (dashboardImage) dashboardImage.src = imageSource;
         if (websitePhotoPreview) websitePhotoPreview.src = imageSource;
+        if (galleryPreview1) galleryPreview1.src = slideImages[0] || '';
+        if (galleryPreview2) galleryPreview2.src = slideImages[1] || '';
+        if (galleryPreview3) galleryPreview3.src = slideImages[2] || '';
 
-        if (heroImage && !imageSource) {
+        if (heroImage && !heroImage.src) {
             heroImage.style.display = 'none';
         } else if (heroImage) {
             heroImage.style.display = 'block';
@@ -571,10 +668,18 @@ document.addEventListener('DOMContentLoaded', () => {
         return roleText.includes('admin') || userProfile.canManageAccounts;
     }
 
+    function isAdminUser() {
+        return canManageAccounts();
+    }
+
     function refreshAccountAccessUI() {
         const addBtn = document.getElementById('addKaryawanBtn');
+        const addAdminBtn = document.getElementById('addAdminBtn');
         if (addBtn) {
-            addBtn.style.display = canManageAccounts() ? 'inline-flex' : 'none';
+            addBtn.style.display = isAdminUser() ? 'inline-flex' : 'none';
+        }
+        if (addAdminBtn) {
+            addAdminBtn.style.display = isAdminUser() ? 'inline-flex' : 'none';
         }
     }
 
@@ -613,6 +718,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderContactStatus();
     renderContactInbox();
     renderAnnouncements();
+    renderTodayProjects();
     refreshAccountAccessUI();
     applyAdminOnlyReadOnlyState();
 
@@ -937,6 +1043,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const karyawanTableBody = document.getElementById('karyawanTableBody');
     const karyawanSearch = document.getElementById('karyawanSearch');
     const addKaryawanBtn = document.getElementById('addKaryawanBtn');
+    const addAdminBtn = document.getElementById('addAdminBtn');
     const employeeModal = document.getElementById('employeeModal');
     const closeEmployeeModalBtn = document.getElementById('closeEmployeeModalBtn');
     const employeeForm = document.getElementById('employeeForm');
@@ -1036,10 +1143,26 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. Modal Opening/Closing
     if (addKaryawanBtn && employeeModal) {
         addKaryawanBtn.addEventListener('click', () => {
-            if (!canManageAccounts()) {
-                alert('Hanya akun HR & Legal yang dapat mengubah atau mengelola data akun karyawan.');
+            if (!isAdminUser()) {
+                alert('Hanya admin yang dapat mengubah atau mengelola data akun.');
                 return;
             }
+            document.getElementById('employeeModalTitle').textContent = 'Buat Akun Karyawan';
+            document.getElementById('employeeModalSubtitle').textContent = 'Silakan masukkan detail profil dan kredensial login karyawan baru BMI.';
+            document.getElementById('empAccountRole').value = 'Karyawan';
+            employeeModal.classList.add('active');
+        });
+    }
+
+    if (addAdminBtn && employeeModal) {
+        addAdminBtn.addEventListener('click', () => {
+            if (!isAdminUser()) {
+                alert('Hanya admin yang dapat menambah akun admin.');
+                return;
+            }
+            document.getElementById('employeeModalTitle').textContent = 'Buat Akun Admin';
+            document.getElementById('employeeModalSubtitle').textContent = 'Silakan masukkan detail profil dan kredensial login admin baru BMI.';
+            document.getElementById('empAccountRole').value = 'Admin';
             employeeModal.classList.add('active');
         });
     }
@@ -1155,6 +1278,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const deptVal = document.getElementById('empDepartment').value;
             const emailVal = document.getElementById('empEmail').value.trim();
             const statusVal = document.getElementById('empStatus').value;
+            const accountRole = document.getElementById('empAccountRole').value;
 
             // Simple validation: NIP must be unique
             const isNipExists = karyawanList.some(emp => emp.nip.toLowerCase() === nipVal.toLowerCase());
@@ -1180,7 +1304,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 departemen: deptVal,
                 email: emailVal,
                 status: statusVal,
-                role: 'Karyawan'
+                role: accountRole,
+                canManageAccounts: accountRole === 'Admin'
             };
 
             // Push to state array and persist
@@ -1191,7 +1316,7 @@ document.addEventListener('DOMContentLoaded', () => {
             renderKaryawanTable(karyawanSearch.value);
             closeEmployeeModal();
 
-            alert(`Berhasil membuat akun karyawan: ${nameVal} (Username: ${usernameVal})`);
+            alert(`Berhasil membuat akun ${accountRole.toLowerCase()}: ${nameVal} (Username: ${usernameVal})`);
         });
     }
 
@@ -1265,21 +1390,34 @@ document.addEventListener('DOMContentLoaded', () => {
     const websiteInfoForm = document.getElementById('websiteInfoForm');
     const websiteAlert = document.getElementById('websiteAlert');
     const brandPhotoInput = document.getElementById('brandPhotoInput');
+    const galleryPhoto1Input = document.getElementById('galleryPhoto1Input');
+    const galleryPhoto2Input = document.getElementById('galleryPhoto2Input');
+    const galleryPhoto3Input = document.getElementById('galleryPhoto3Input');
 
-    if (brandPhotoInput) {
-        brandPhotoInput.addEventListener('change', (event) => {
+    function handleImageUpload(input, targetKey) {
+        if (!input) return;
+        input.addEventListener('change', (event) => {
             const file = event.target.files && event.target.files[0];
             if (!file) return;
-
             const reader = new FileReader();
             reader.onload = () => {
-                pendingBrandPhoto = reader.result;
-                websiteInfo.brandPhoto = pendingBrandPhoto;
+                if (targetKey === 'brandPhoto') {
+                    pendingBrandPhoto = reader.result;
+                    websiteInfo.brandPhoto = pendingBrandPhoto;
+                } else {
+                    galleryImages[targetKey] = reader.result;
+                    websiteInfo.galleryImages = galleryImages;
+                }
                 syncWebsiteInfo();
             };
             reader.readAsDataURL(file);
         });
     }
+
+    handleImageUpload(brandPhotoInput, 'brandPhoto');
+    handleImageUpload(galleryPhoto1Input, 0);
+    handleImageUpload(galleryPhoto2Input, 1);
+    handleImageUpload(galleryPhoto3Input, 2);
 
     if (websiteInfoForm) {
         websiteInfoForm.addEventListener('submit', (e) => {
@@ -1301,9 +1439,14 @@ document.addEventListener('DOMContentLoaded', () => {
             websiteInfo.navAboutLabel = document.getElementById('webNavAboutInput').value.trim() || defaultWebsiteInfo.navAboutLabel;
             websiteInfo.navServicesLabel = document.getElementById('webNavServicesInput').value.trim() || defaultWebsiteInfo.navServicesLabel;
             websiteInfo.navProjectsLabel = document.getElementById('webNavProjectsInput').value.trim() || defaultWebsiteInfo.navProjectsLabel;
+            websiteInfo.navNewsLabel = document.getElementById('webNavNewsInput').value.trim() || defaultWebsiteInfo.navNewsLabel;
+            websiteInfo.navCareerLabel = document.getElementById('webNavCareerInput').value.trim() || defaultWebsiteInfo.navCareerLabel;
             websiteInfo.navTeamLabel = document.getElementById('webNavTeamInput').value.trim() || defaultWebsiteInfo.navTeamLabel;
             websiteInfo.navContactLabel = document.getElementById('webNavContactInput').value.trim() || defaultWebsiteInfo.navContactLabel;
             websiteInfo.aboutSectionTitle = document.getElementById('webAboutTitleInput').value.trim() || defaultWebsiteInfo.aboutSectionTitle;
+            websiteInfo.newsSectionTitle = document.getElementById('webNewsTitleInput').value.trim() || defaultWebsiteInfo.newsSectionTitle;
+            websiteInfo.careerSectionTitle = document.getElementById('webCareerTitleInput').value.trim() || defaultWebsiteInfo.careerSectionTitle;
+            websiteInfo.careerSectionDesc = document.getElementById('webCareerDescInput').value.trim() || defaultWebsiteInfo.careerSectionDesc;
             websiteInfo.aboutVisionText = document.getElementById('webAboutDescInput').value.trim() || defaultWebsiteInfo.aboutVisionText;
             websiteInfo.aboutBriefTitle = document.getElementById('webAboutBriefTitleInput').value.trim() || defaultWebsiteInfo.aboutBriefTitle;
             websiteInfo.aboutBriefDesc = document.getElementById('webAboutBriefDescInput').value.trim() || defaultWebsiteInfo.aboutBriefDesc;
@@ -1329,6 +1472,7 @@ document.addEventListener('DOMContentLoaded', () => {
             websiteInfo.email = document.getElementById('webEmailInput').value.trim();
             websiteInfo.address = document.getElementById('webAddressInput').value.trim();
             websiteInfo.brandPhoto = pendingBrandPhoto || websiteInfo.brandPhoto || '';
+            websiteInfo.galleryImages = galleryImages;
             websiteInfo.dashboardBrandTitle = document.getElementById('dashboardBrandTitle')?.textContent || websiteInfo.dashboardBrandTitle;
             websiteInfo.dashboardBrandDesc = document.getElementById('dashboardBrandDesc')?.textContent || websiteInfo.dashboardBrandDesc;
 
@@ -1389,6 +1533,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ================= INTERNAL ANNOUNCEMENTS =================
     const announcementForm = document.getElementById('announcementForm');
+    const todayProjectForm = document.getElementById('todayProjectForm');
 
     if (announcementForm) {
         announcementForm.addEventListener('submit', (e) => {
@@ -1414,6 +1559,60 @@ document.addEventListener('DOMContentLoaded', () => {
             announcementForm.reset();
         });
     }
+
+    if (todayProjectForm) {
+        todayProjectForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const title = document.getElementById('todayProjectTitleInput').value.trim();
+            const time = document.getElementById('todayProjectTimeInput').value.trim();
+            const details = document.getElementById('todayProjectDetailsInput').value.trim();
+
+            if (!title || !time || !details) return;
+
+            todayProjects.unshift({
+                title,
+                time,
+                details,
+                author: userProfile.name
+            });
+            saveTodayProjects();
+            renderTodayProjects();
+            todayProjectForm.reset();
+        });
+    }
+
+    let activeSlide = 0;
+    const heroGalleryImage = document.getElementById('heroGalleryImage');
+    const heroGalleryDots = document.getElementById('heroGalleryDots');
+    const prevSlideBtn = document.getElementById('prevSlideBtn');
+    const nextSlideBtn = document.getElementById('nextSlideBtn');
+
+    function renderHeroGallery() {
+        const slides = Array.isArray(websiteInfo.galleryImages) ? websiteInfo.galleryImages.filter(Boolean) : [];
+        if (!heroGalleryImage || !heroGalleryDots) return;
+
+        if (!slides.length) {
+            heroGalleryImage.src = websiteInfo.brandPhoto || '';
+            heroGalleryDots.innerHTML = '';
+            return;
+        }
+
+        heroGalleryImage.src = slides[activeSlide];
+        heroGalleryDots.innerHTML = slides.map((_, index) => `<span class="gallery-dot ${index === activeSlide ? 'active' : ''}"></span>`).join('');
+    }
+
+    function changeSlide(direction) {
+        const slides = Array.isArray(websiteInfo.galleryImages) ? websiteInfo.galleryImages.filter(Boolean) : [];
+        if (!slides.length) return;
+        activeSlide = (activeSlide + direction + slides.length) % slides.length;
+        renderHeroGallery();
+    }
+
+    if (prevSlideBtn) prevSlideBtn.addEventListener('click', () => changeSlide(-1));
+    if (nextSlideBtn) nextSlideBtn.addEventListener('click', () => changeSlide(1));
+    setInterval(() => changeSlide(1), 5000);
+
+    renderHeroGallery();
 
     // ================= HERO COUNTER ANIMATIONS (MICRO EFFECT) =================
     let safetyRate = 99.80;

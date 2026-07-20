@@ -37,6 +37,8 @@
                         <li><a href="#tentang" class="nav-link"><i class="fa-solid fa-building"></i><span id="navAboutLabel">Tentang</span></a></li>
                         <li><a href="#layanan" class="nav-link"><i class="fa-solid fa-screwdriver-wrench"></i><span id="navServicesLabel">Layanan</span></a></li>
                         <li><a href="#proyek" class="nav-link"><i class="fa-solid fa-diagram-project"></i><span id="navProjectsLabel">Proyek</span></a></li>
+                        <li><a href="#berita" class="nav-link"><i class="fa-solid fa-newspaper"></i><span id="navNewsLabel">Berita</span></a></li>
+                        <li><a href="#karir" class="nav-link"><i class="fa-solid fa-briefcase"></i><span id="navCareerLabel">Karir</span></a></li>
                         <li><a href="#tim" class="nav-link"><i class="fa-solid fa-users"></i><span id="navTeamLabel">Tim</span></a></li>
                         <li><a href="#contact" class="nav-link"><i class="fa-solid fa-envelope"></i><span id="navContactLabel">Kontak</span></a></li>
                     </ul>
@@ -70,7 +72,14 @@
                     <div class="hero-visual">
                         <div class="glass-card visual-card">
                             <div class="card-glow"></div>
-                            <img id="heroCompanyImage" class="hero-company-image" src="" alt="Foto perusahaan BMI">
+                            <div class="hero-gallery-shell">
+                                <img id="heroGalleryImage" class="hero-gallery-image" src="" alt="Foto operasional BMI">
+                                <div class="hero-gallery-controls">
+                                    <button type="button" class="gallery-control" id="prevSlideBtn" aria-label="Slide sebelumnya"><i class="fa-solid fa-chevron-left"></i></button>
+                                    <div class="gallery-dots" id="heroGalleryDots"></div>
+                                    <button type="button" class="gallery-control" id="nextSlideBtn" aria-label="Slide berikutnya"><i class="fa-solid fa-chevron-right"></i></button>
+                                </div>
+                            </div>
                             <div class="card-header">
                                 <span class="status-dot online"></span>
                                 <span>BMI Plant Status: Optimal</span>
@@ -204,6 +213,75 @@
                         <p id="projectThreeDesc">Solusi rangka atap, platform, dan struktur komersial skala besar.</p>
                         <span id="projectThreeMeta">Industrial • 2023</span>
                     </article>
+                </div>
+            </section>
+
+            <!-- Berita Section -->
+            <section id="berita" class="news-section">
+                <div class="section-header">
+                    <span class="section-subtitle">Berita & Informasi</span>
+                    <h2 id="newsSectionTitle">Kabar Terbaru dari BMI</h2>
+                    <div class="header-line"></div>
+                </div>
+                <div class="news-grid">
+                    <article class="news-card">
+                        <div class="news-date">12 Jul 2026</div>
+                        <h3 id="newsOneTitle">BMI Raih Penghargaan Zero Accident 2026</h3>
+                        <p id="newsOneDesc">Komitmen terhadap K3 membuahkan hasil dengan pencapaian tanpa kecelakaan kerja selama 2 tahun penuh.</p>
+                        <a href="#" class="news-link">Baca selengkapnya <i class="fa-solid fa-arrow-right"></i></a>
+                    </article>
+                    <article class="news-card highlight-card">
+                        <div class="news-date">05 Jul 2026</div>
+                        <h3 id="newsTwoTitle">Ekspansi Pabrik Fabrikasi Tahap III</h3>
+                        <p id="newsTwoDesc">Peningkatan kapasitas produksi hingga 25.000 Ton per bulan untuk memenuhi kebutuhan proyek infrastruktur IKN.</p>
+                        <a href="#" class="news-link">Baca selengkapnya <i class="fa-solid fa-arrow-right"></i></a>
+                    </article>
+                    <article class="news-card">
+                        <div class="news-date">28 Jun 2026</div>
+                        <h3 id="newsThreeTitle">Kerja Sama Strategis EPC Internasional</h3>
+                        <p id="newsThreeDesc">Penandatanganan MoU dengan perusahaan multinasional untuk proyek pembangunan rig lepas pantai.</p>
+                        <a href="#" class="news-link">Baca selengkapnya <i class="fa-solid fa-arrow-right"></i></a>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Karir Section -->
+            <section id="karir" class="career-section">
+                <div class="career-container">
+                    <div class="career-content">
+                        <span class="section-subtitle">Peluang Karir</span>
+                        <h2 id="careerSectionTitle">Bergabunglah Membangun Negeri Bersama Kami</h2>
+                        <p id="careerSectionDesc">Kami selalu mencari talenta terbaik di bidang engineering, fabrikasi, dan manajemen proyek untuk berkembang bersama BMI.</p>
+                        <ul class="career-list">
+                            <li><i class="fa-solid fa-check-circle"></i> Lingkungan Kerja Profesional & Dinamis</li>
+                            <li><i class="fa-solid fa-check-circle"></i> Program Pengembangan Kompetensi (Training)</li>
+                            <li><i class="fa-solid fa-check-circle"></i> Kompensasi & Benefit Kompetitif</li>
+                        </ul>
+                        <a href="#contact" class="btn-primary">Lihat Lowongan Tersedia <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                    <div class="career-visual glass-card">
+                        <div class="card-glow"></div>
+                        <div class="career-job-list">
+                            <div class="job-item">
+                                <div class="job-info">
+                                    <h4 id="jobOneTitle">Senior Welding Inspector</h4>
+                                    <span class="job-tag">Full-time</span> <span class="job-tag">On-site</span>
+                                </div>
+                            </div>
+                            <div class="job-item">
+                                <div class="job-info">
+                                    <h4 id="jobTwoTitle">Project Estimator Engineer</h4>
+                                    <span class="job-tag">Full-time</span> <span class="job-tag">Hybrid</span>
+                                </div>
+                            </div>
+                            <div class="job-item">
+                                <div class="job-info">
+                                    <h4 id="jobThreeTitle">HSE Officer</h4>
+                                    <span class="job-tag">Contract</span> <span class="job-tag">On-site</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -375,6 +453,7 @@
                     <li><a href="#" class="sidebar-link active" data-tab="overview"><i class="fa-solid fa-chart-line"></i> Ringkasan</a></li>
                     <li><a href="#" class="sidebar-link" data-tab="karyawan"><i class="fa-solid fa-users"></i> Data Karyawan</a></li>
                     <li><a href="#" class="sidebar-link" data-tab="attendance"><i class="fa-solid fa-calendar-check"></i> Absensi Karyawan</a></li>
+                    <li><a href="#" class="sidebar-link" data-tab="today-projects"><i class="fa-solid fa-clipboard-list"></i> Project Hari Ini</a></li>
                     <li><a href="#" class="sidebar-link" data-tab="website"><i class="fa-solid fa-globe"></i> Pengaturan Website</a></li>
                     <li><a href="#" class="sidebar-link" data-tab="kontak"><i class="fa-solid fa-envelope-open-text"></i> Kontak Klien</a></li>
                     <li><a href="#" class="sidebar-link" data-tab="projects"><i class="fa-solid fa-diagram-project"></i> Proyek & Portofolio</a></li>
@@ -544,9 +623,14 @@
                                     <i class="fa-solid fa-magnifying-glass"></i>
                                     <input type="text" id="karyawanSearch" placeholder="Cari nama, jabatan, NIP, atau departemen...">
                                 </div>
-                                <button class="btn-primary" id="addKaryawanBtn">
-                                    <i class="fa-solid fa-user-plus"></i> Tambah Karyawan & Akun
-                                </button>
+                                <div class="karyawan-actions">
+                                    <button class="btn-primary" id="addKaryawanBtn">
+                                        <i class="fa-solid fa-user-plus"></i> Tambah Karyawan
+                                    </button>
+                                    <button class="btn-primary btn-secondary-alt" id="addAdminBtn">
+                                        <i class="fa-solid fa-user-shield"></i> Tambah Admin
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
@@ -595,6 +679,35 @@
                             </div>
                         </div>
 
+                        <!-- Form Absensi Manual Harian -->
+                        <div class="attendance-submission-card" id="attendanceSubmissionArea">
+                            <h4>Form Absensi Harian</h4>
+                            <p>Silakan isi absensi Anda untuk hari ini. (Hanya dapat diisi 1x sehari)</p>
+                            
+                            <form id="dailyAttendanceForm" class="announcement-form" style="margin-top: 16px;">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="attendanceStatusInput">Status Kehadiran</label>
+                                        <select id="attendanceStatusInput" required style="border: 1px solid var(--border-color); padding: 12px; border-radius: 8px; width: 100%;">
+                                            <option value="Hadir">Hadir</option>
+                                            <option value="Izin">Izin</option>
+                                            <option value="Sakit">Sakit</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" style="display: flex; align-items: flex-end;">
+                                        <button type="submit" class="btn-primary" style="width: 100%; border-radius: 8px; justify-content: center;">
+                                            <i class="fa-solid fa-clock"></i> Submit Absen
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <div class="alert-box success" id="attendanceSuccessAlert" style="display: none; margin-top: 20px;">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>Anda sudah melakukan absensi hari ini.</span>
+                        </div>
+
                         <div class="table-responsive" style="margin-top: 20px;">
                             <table class="karyawan-table">
                                 <thead>
@@ -612,7 +725,35 @@
                     </div>
                 </div>
 
-                <!-- TAB 4: PENGATURAN WEBSITE (NEW TAB) -->
+                <!-- TAB 4: PROJECT HARI INI -->
+                <div class="db-tab-content" id="tab-today-projects">
+                    <div class="db-card">
+                        <h3>Project Hari Ini</h3>
+                        <p class="section-desc">Admin dapat membagikan agenda kerja harian dan karyawan bisa melihatnya langsung dari dashboard.</p>
+                        <form id="todayProjectForm" class="announcement-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="todayProjectTitleInput">Judul Project</label>
+                                    <input type="text" id="todayProjectTitleInput" placeholder="Contoh: Pengecekan crane line C" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="todayProjectTimeInput">Jam / Waktu</label>
+                                    <input type="text" id="todayProjectTimeInput" placeholder="Contoh: 08.00 - 12.00" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="todayProjectDetailsInput">Detail Project</label>
+                                <textarea id="todayProjectDetailsInput" rows="3" placeholder="Tuliskan target, lokasi, dan catatan penting" required></textarea>
+                            </div>
+                            <button type="submit" class="btn-save-settings">
+                                <i class="fa-solid fa-clipboard-check"></i> Bagikan ke Karyawan
+                            </button>
+                        </form>
+                        <div class="today-project-list" id="todayProjectList"></div>
+                    </div>
+                </div>
+
+                <!-- TAB 5: PENGATURAN WEBSITE -->
                 <div class="db-tab-content" id="tab-website">
                     <div class="db-card">
                         <h3>Pengaturan Informasi Website</h3>
@@ -647,6 +788,14 @@
                                     <input type="text" id="webNavProjectsInput">
                                 </div>
                                 <div class="form-group">
+                                    <label for="webNavNewsInput">Label Menu Berita</label>
+                                    <input type="text" id="webNavNewsInput">
+                                </div>
+                                <div class="form-group">
+                                    <label for="webNavCareerInput">Label Menu Karir</label>
+                                    <input type="text" id="webNavCareerInput">
+                                </div>
+                                <div class="form-group">
                                     <label for="webNavTeamInput">Label Menu Tim</label>
                                     <input type="text" id="webNavTeamInput">
                                 </div>
@@ -672,6 +821,21 @@
                                 <div class="form-group">
                                     <label for="webAboutBriefDescInput">Deskripsi Mengapa Memilih Kami</label>
                                     <textarea id="webAboutBriefDescInput" rows="3"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="content-editor-grid">
+                                <div class="form-group">
+                                    <label for="webNewsTitleInput">Judul Bagian Berita</label>
+                                    <input type="text" id="webNewsTitleInput">
+                                </div>
+                                <div class="form-group">
+                                    <label for="webCareerTitleInput">Judul Bagian Karir</label>
+                                    <input type="text" id="webCareerTitleInput">
+                                </div>
+                                <div class="form-group">
+                                    <label for="webCareerDescInput">Deskripsi Bagian Karir</label>
+                                    <textarea id="webCareerDescInput" rows="3"></textarea>
                                 </div>
                             </div>
 
@@ -772,10 +936,29 @@
                                 <textarea id="webAddressInput" rows="2" required></textarea>
                             </div>
 
-                            <div class="form-group">
-                                <label for="brandPhotoInput">Upload Foto / Banner Perusahaan</label>
-                                <input type="file" id="brandPhotoInput" accept="image/*">
-                                <img id="websitePhotoPreview" class="photo-preview" src="" alt="Preview foto perusahaan">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="galleryPhoto1Input">Foto 1 (Slide Hero)</label>
+                                    <input type="file" id="galleryPhoto1Input" accept="image/*">
+                                    <img id="galleryPreview1" class="photo-preview" src="" alt="Preview foto 1">
+                                </div>
+                                <div class="form-group">
+                                    <label for="galleryPhoto2Input">Foto 2 (Slide Hero)</label>
+                                    <input type="file" id="galleryPhoto2Input" accept="image/*">
+                                    <img id="galleryPreview2" class="photo-preview" src="" alt="Preview foto 2">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="galleryPhoto3Input">Foto 3 (Slide Hero)</label>
+                                    <input type="file" id="galleryPhoto3Input" accept="image/*">
+                                    <img id="galleryPreview3" class="photo-preview" src="" alt="Preview foto 3">
+                                </div>
+                                <div class="form-group">
+                                    <label for="brandPhotoInput">Foto Utama / Banner</label>
+                                    <input type="file" id="brandPhotoInput" accept="image/*">
+                                    <img id="websitePhotoPreview" class="photo-preview" src="" alt="Preview foto perusahaan">
+                                </div>
                             </div>
                             
                             <button type="submit" class="btn-save-settings">
@@ -971,6 +1154,36 @@
                         <div class="input-wrapper">
                             <i class="fa-solid fa-envelope"></i>
                             <input type="email" id="empEmail" placeholder="nama@bakriemetal.co.id" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="empAccountRole">Tipe Akun</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-user-shield"></i>
+                            <select id="empAccountRole" required>
+                                <option value="Karyawan">Karyawan</option>
+                                <option value="Admin">Admin</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="empDepartment">Departemen</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-sitemap" style="left: 18px; top: 50%; transform: translateY(-50%); position: absolute; pointer-events: none; z-index: 2;"></i>
+                            <select id="empDepartment" required style="padding-left: 48px; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color); border-radius: 12px; height: 50px; color: #fff; width: 100%; -webkit-appearance: none; -moz-appearance: none; appearance: none; outline: none; transition: var(--transition-smooth);">
+                                <option value="" disabled selected style="background: var(--bg-dark);">Pilih Departemen</option>
+                                <option value="Produksi & Fabrikasi" style="background: var(--bg-dark);">Produksi & Fabrikasi</option>
+                                <option value="Quality Assurance & QC" style="background: var(--bg-dark);">Quality Assurance & QC</option>
+                                <option value="HSE & Safety" style="background: var(--bg-dark);">HSE & Safety</option>
+                                <option value="Logistik & Supply Chain" style="background: var(--bg-dark);">Logistik & Supply Chain</option>
+                                <option value="HR & Legal" style="background: var(--bg-dark);">HR & Legal</option>
+                                <option value="Finance & Accounting" style="background: var(--bg-dark);">Finance & Accounting</option>
+                                <option value="Admin" style="background: var(--bg-dark);">Admin</option>
+                            </select>
+                            <i class="fa-solid fa-chevron-down" style="left: auto; right: 18px;"></i>
                         </div>
                     </div>
                 </div>
